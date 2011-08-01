@@ -1,0 +1,216 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<html>
+	<body>
+	<f:view>
+		<ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+			<br />
+			<ui:define name="body">
+				<ice:form>
+					<table cellpadding="0" cellspacing="0" style="width: 73%;">
+						<tr>
+							<td width="25%">
+							<fieldset style="height: 700px;"><ui:include
+								src="/WEB-INF/facelets/menu.jspx" /></fieldset>
+							</td>
+							<td width="75%">
+							<fieldset style="height: 700px; width: 98%;">
+							<div align="center">
+							<ice:outputText value="#{lbl.libroT}"></ice:outputText>
+								<ice:panelGrid columns="2">
+									<ice:outputText value="#{lbl.titulo}"></ice:outputText>
+									<ice:inputText binding="#{sabLibroVista.txtTitulo}"></ice:inputText>
+									
+									<ice:outputText value="#{lbl.edicion}"></ice:outputText>
+									<ice:selectOneMenu value="#{sabLibroVista.idEdicion}" >
+									<f:selectItems value="#{sabLibroVista.listEdicion}"/>
+									</ice:selectOneMenu>
+									
+									<ice:outputText value="#{lbl.volumen}"></ice:outputText>
+									<ice:selectOneMenu value="#{sabLibroVista.idVolumen}" >
+									<f:selectItems value="#{sabLibroVista.listVolumen}"/>
+									</ice:selectOneMenu>
+									
+									<ice:outputText value="#{lbl.editorial}"></ice:outputText>
+									<ice:selectOneMenu value="#{sabLibroVista.idEditorial}" >
+									<f:selectItems value="#{sabLibroVista.listEditorial}"/>
+									</ice:selectOneMenu>
+									
+									<ice:outputText value="#{lbl.area}"></ice:outputText>
+									<ice:selectOneMenu value="#{sabLibroVista.idArea}" >
+									<f:selectItems value="#{sabLibroVista.listArea}"/>
+									</ice:selectOneMenu>
+									
+									<ice:outputText value="#{lbl.cantidad}"></ice:outputText>
+									<ice:inputText binding="#{sabLibroVista.txtCantidad}"></ice:inputText>
+									</ice:panelGrid>
+									<ice:panelGrid columns="3">
+									<ice:outputText value="#{lbl.autores}"></ice:outputText>
+									<br/><br/>
+									<ice:selectManyListbox value="#{sabLibroVista.listSelectAutores}" styleClass="ScrollLb">
+									<f:selectItems value="#{sabLibroVista.listAutores}"/>
+									</ice:selectManyListbox>
+									<ice:panelGrid>
+									<ice:commandButton styleClass="button" value="&#62;" action="#{sabLibroVista.action_agregar_autor}"></ice:commandButton>
+									<ice:commandButton styleClass="button" value="&#60;" action="#{sabLibroVista.action_borrar_autor}" ></ice:commandButton>
+									</ice:panelGrid>
+									<ice:selectManyListbox value="#{sabLibroVista.listSelectAutoresLibro}" styleClass="ScrollLb">
+									<f:selectItems value="#{sabLibroVista.listAutoresLibro}"/>
+									</ice:selectManyListbox>
+									</ice:panelGrid>
+								
+								</div>
+								<div align="center"><ice:panelGrid columns="4">
+									<ice:commandButton styleClass="button" value="#{lbl.guardar}"
+										action="#{sabLibroVista.action_save}"
+										binding="#{sabLibroVista.btnSave}">
+									</ice:commandButton>
+									<ice:commandButton styleClass="button" value="#{lbl.modificar}"
+										action="#{sabLibroVista.action_modify}"
+										binding="#{sabLibroVista.btnModify }">
+									</ice:commandButton>
+									<ice:commandButton styleClass="button" value="#{lbl.borrar}"
+										action="#{sabLibroVista.action_delete}"
+										binding="#{sabLibroVista.btnDelete}"
+										onclick="if(!confirm('#{lbl.eliminar_libro}')){ return; };">
+									</ice:commandButton>
+									<ice:commandButton styleClass="button" value="#{lbl.limpiar}"
+										action="#{sabLibroVista.action_clear}"
+										binding="#{sabLibroVista.btnClear}">
+									</ice:commandButton>
+								</ice:panelGrid>
+								<ice:dataTable id="tablaLibro" value="#{sabLibroVista.sabLibro}" var="sabLibro" rows="5">
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.id}"></ice:outputText>
+									</f:facet>
+									<ice:commandLink value="#{sabLibro.idLibro}"
+										action="#{sabLibroVista.action_commandLink}">
+										<f:setPropertyActionListener value="#{sabLibro.idLibro}"
+											target="#{sabLibroVista.idLibro}" />
+									</ice:commandLink>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.titulo}"></ice:outputText>
+									</f:facet>
+									<div align="justify">
+									<ice:outputText value="#{sabLibro.titulo} #{sabLibro.sabVolumen.descripcion}"></ice:outputText>
+									</div>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.edicion}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabLibro.sabEdicion.descripcion}"></ice:outputText>
+								</ice:column>
+								<!-- <ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.volumen}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabLibro.sabVolumen.descripcion}"></ice:outputText>
+								</ice:column> -->
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.editorial}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabLibro.sabEditorial.nombre}"></ice:outputText>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.area}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabLibro.sabArea.nombre}"></ice:outputText>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.cantidad}"></ice:outputText>
+									</f:facet>
+									<div align="center">
+									<ice:outputText value="#{sabLibro.cantidad}"></ice:outputText>
+									</div>
+								</ice:column>
+								<ice:column style="width:10%;">
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.cantidad_prestados}"></ice:outputText>
+									</f:facet>
+									<div align="center">
+									<ice:outputText value="#{sabLibro.cantidadPrestados}"></ice:outputText>
+									</div>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.estado_libro}"></ice:outputText>
+									</f:facet>
+									<div align="center">
+									<ice:outputText value="#{sabLibro.sabEstadoLibro.descripcion}"></ice:outputText>
+									</div>
+								</ice:column>
+								<!--<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.autores}"></ice:outputText>
+									</f:facet>
+									<ice:dataTable value="#{sabLibro.sabLibroAutors}" var="autor">
+										<ice:column>
+											<ice:outputText value="#{autor.sabAutor.nombre}"></ice:outputText>
+										</ice:column>
+									</ice:dataTable>
+								</ice:column>-->
+							</ice:dataTable>
+							
+							<ice:dataPaginator for="tablaLibro" fastStep="3" 
+								paginator="true" renderFacetsIfSinglePage="false" paginatorMaxPages="7">
+									<f:facet name="first">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="last">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="previous">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="fastforward">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="fastrewind">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
+											style="border:none;" />
+									</f:facet>
+								</ice:dataPaginator>
+							</div>
+							</fieldset>
+							</td>
+						</tr>
+					</table>
+				</ice:form>
+			</ui:define>
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>
+		</ui:composition>
+	</f:view>
+	</body>
+	</html>
+</jsp:root>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 6/07/2011 07:13:44 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.unicatolica.modelo.SabLibroAutor" table="sab_libro_autor" schema="public">
+        <composite-id name="id" class="co.edu.unicatolica.modelo.SabLibroAutorId">
+            <key-property name="idLibro" type="java.lang.Long">
+                <column name="id_libro" precision="8" scale="0" />
+            </key-property>
+            <key-property name="idAutor" type="java.lang.Long">
+                <column name="id_autor" precision="8" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="sabLibro" class="co.edu.unicatolica.modelo.SabLibro" update="false" insert="false" fetch="select">
+            <column name="id_libro" precision="8" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sabAutor" class="co.edu.unicatolica.modelo.SabAutor" update="false" insert="false" fetch="select">
+            <column name="id_autor" precision="8" scale="0" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

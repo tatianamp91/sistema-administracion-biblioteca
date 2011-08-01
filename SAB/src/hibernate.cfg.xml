@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.password">POSTGRES</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/BIBLIOTECA</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <mapping resource="co/edu/unicatolica/modelo/SabPrestamo.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabArea.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabUsuario.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabEdicion.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabEditorial.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabAutor.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabLibro.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabRol.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabVolumen.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabEstadoLibro.hbm.xml" />
+        <mapping resource="co/edu/unicatolica/modelo/SabLibroAutor.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

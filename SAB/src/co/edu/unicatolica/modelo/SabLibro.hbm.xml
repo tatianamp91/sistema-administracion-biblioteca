@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/06/2011 05:24:29 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.unicatolica.modelo.SabLibro" table="sab_libro" schema="public">
+        <id name="idLibro" type="java.lang.Long">
+            <column name="id_libro" precision="8" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">seq_sab_libro</param>
+            </generator>
+        </id>
+        <many-to-one name="sabVolumen" class="co.edu.unicatolica.modelo.SabVolumen" fetch="select">
+            <column name="id_volumen" precision="8" scale="0" />
+        </many-to-one>
+        <many-to-one name="sabEditorial" class="co.edu.unicatolica.modelo.SabEditorial" fetch="select">
+            <column name="id_editorial" precision="8" scale="0" />
+        </many-to-one>
+        <many-to-one name="sabArea" class="co.edu.unicatolica.modelo.SabArea" fetch="select">
+            <column name="id_area" precision="8" scale="0" />
+        </many-to-one>
+        <many-to-one name="sabEdicion" class="co.edu.unicatolica.modelo.SabEdicion" fetch="select">
+            <column name="id_edicion" precision="8" scale="0" />
+        </many-to-one>
+        <many-to-one name="sabEstadoLibro" class="co.edu.unicatolica.modelo.SabEstadoLibro" fetch="select">
+            <column name="id_estado" precision="8" scale="0" />
+        </many-to-one>
+        <property name="titulo" type="java.lang.String">
+            <column name="titulo" length="50" not-null="true" />
+        </property>
+        <property name="cantidad" type="java.lang.Long">
+            <column name="cantidad" precision="3" scale="0" not-null="true" />
+        </property>
+        <property name="cantidadPrestados" type="java.lang.Long">
+            <column name="cantidad_prestados" precision="3" scale="0" not-null="true" />
+        </property>
+        <set name="sabPrestamos" inverse="true" lazy="true" table="sab_prestamo" fetch="select">
+            <key>
+                <column name="id_libro" precision="8" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.unicatolica.modelo.SabPrestamo" />
+        </set>
+        <set name="sabLibroAutors" inverse="true" lazy="true" table="sab_libro_autor" fetch="select">
+            <key>
+                <column name="id_libro" precision="8" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.unicatolica.modelo.SabLibroAutor" />
+        </set>
+    </class>
+</hibernate-mapping>

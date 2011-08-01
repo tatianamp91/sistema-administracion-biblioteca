@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/06/2011 05:24:29 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.unicatolica.modelo.SabPrestamo" table="sab_prestamo" schema="public">
+        <id name="idPrestamo" type="java.lang.Long">
+            <column name="id_prestamo" precision="8" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">seq_sab_prestamo</param>
+            </generator>
+        </id>
+        <many-to-one name="sabUsuario" class="co.edu.unicatolica.modelo.SabUsuario" fetch="select">
+            <column name="id_usuario" precision="8" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sabLibro" class="co.edu.unicatolica.modelo.SabLibro" fetch="select">
+            <column name="id_libro" precision="8" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fechaPrestamo" type="java.util.Date">
+            <column name="fecha_prestamo" length="13" not-null="true" />
+        </property>
+        <property name="fechaDevolucion" type="java.util.Date">
+            <column name="fecha_devolucion" length="13" not-null="true" />
+        </property>
+        <property name="estadoPrestamo" type="java.lang.Long">
+            <column name="estado_prestamo" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="fechaRealDevolucion" type="java.util.Date">
+            <column name="fecha_real_devolucion" length="13" />
+        </property>
+    </class>
+</hibernate-mapping>
