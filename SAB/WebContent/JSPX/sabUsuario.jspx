@@ -1,0 +1,118 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <html>
+        <body>
+            <f:view>
+                <ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+                    <ui:define name="header">
+                        <ui:include src="/WEB-INF/facelets/header.jspx" />
+                    </ui:define>
+                    <br />
+                    <ui:define name="body">
+                        <ice:form>
+                            <ice:outputConnectionStatus id="outputConnectionStatus" style="height: 30px; right: 10px; top: -10px; position: absolute;"/>
+                            <br />
+                            <br />
+                            <div align="center">
+                                <ice:commandLink id="cmdBack" 
+                                    value="Back" action="goInitialMenu">
+                                </ice:commandLink>
+                                
+                                <ice:panelCollapsible expanded="true" toggleOnClick="false" style="width: 100%">
+									<f:facet name="header">
+										<ice:outputLabel id="msgProjectSabUsuarioTitle" value="SabUsuario" />
+									</f:facet>
+                                
+                                    
+                                    
+                                    <br />
+                                    <ice:messages
+                                        style="font-family: fantasy;color: red;font-size: 13px;" />
+                                        
+                                            <div align="center">
+                                                <ice:panelGrid columns="2">
+                                                                                                            <ice:outputText id="msgIdUsuario"
+                                                            value=" IdUsuario">
+                                                        </ice:outputText>
+                                                        <ice:inputText id="txtIdUsuario"
+                                                            binding="#{sabUsuarioView.txtIdUsuario}"
+                                                            valueChangeListener="#{sabUsuarioView.listener_txtId}"
+                                                            partialSubmit="true">
+                                                        </ice:inputText>
+                                                                                                                                                                                                                    <ice:outputText id="msgCodigo"
+                                                            value=" Codigo">
+                                                        </ice:outputText>
+                                                        <ice:inputText id="txtCodigo" disabled="true"
+                                                            binding="#{sabUsuarioView.txtCodigo}">
+                                                        </ice:inputText>
+                                                                                                            <ice:outputText id="msgEmail"
+                                                            value=" Email">
+                                                        </ice:outputText>
+                                                        <ice:inputText id="txtEmail" disabled="true"
+                                                            binding="#{sabUsuarioView.txtEmail}">
+                                                        </ice:inputText>
+                                                                                                            <ice:outputText id="msgNombreCompleto"
+                                                            value=" NombreCompleto">
+                                                        </ice:outputText>
+                                                        <ice:inputText id="txtNombreCompleto" disabled="true"
+                                                            binding="#{sabUsuarioView.txtNombreCompleto}">
+                                                        </ice:inputText>
+                                                                                                            <ice:outputText id="msgNumIdentificacion"
+                                                            value=" NumIdentificacion">
+                                                        </ice:outputText>
+                                                        <ice:inputText id="txtNumIdentificacion" disabled="true"
+                                                            binding="#{sabUsuarioView.txtNumIdentificacion}">
+                                                        </ice:inputText>
+                                                                                                            <ice:outputText id="msgIdRol_SabRol"
+                                                            value=" IdRol_SabRol">
+                                                        </ice:outputText>
+                                                        <ice:inputText id="txtIdRol_SabRol" disabled="true"
+                                                            binding="#{sabUsuarioView.txtIdRol_SabRol}">
+                                                        </ice:inputText>
+                                                                                                                                                        </ice:panelGrid>
+                                            </div>
+                                       
+                                        
+                                            <div align="center">
+                                                <ice:panelGrid columns="4">
+                                                    <ice:commandButton id="btnSave" disabled="true"
+                                                        styleClass="button" value="Save"
+                                                        action="#{sabUsuarioView.action_save}"
+                                                        binding="#{sabUsuarioView.btnSave}">
+                                                    </ice:commandButton>
+                                                    <ice:commandButton id="btnModify" disabled="true"
+                                                        styleClass="button" value="Modify"
+                                                        action="#{sabUsuarioView.action_modify}"
+                                                        binding="#{sabUsuarioView.btnModify}">
+                                                    </ice:commandButton>
+                                                    <ice:commandButton id="btnDelete" disabled="true"
+                                                        styleClass="button" value="Delete"
+                                                        action="#{sabUsuarioView.action_delete}"
+                                                        binding="#{sabUsuarioView.btnDelete}"
+                                                        onclick="if(!confirm('Do you really want to delete this Entry')){ return; };">
+                                                    </ice:commandButton>
+                                                    <ice:commandButton id="btnClear" disabled="false"
+                                                        styleClass="button" value="Clear"
+                                                        action="#{sabUsuarioView.action_clear}"
+                                                        binding="#{sabUsuarioView.btnClear}">
+                                                    </ice:commandButton>
+                                                </ice:panelGrid>
+                                            </div>
+                                       
+								</ice:panelCollapsible>
+                            </div>
+                        </ice:form>
+                    </ui:define>
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/facelets/footer.jspx" />
+                    </ui:define>
+                </ui:composition>
+            </f:view>
+        </body>
+    </html>
+</jsp:root>

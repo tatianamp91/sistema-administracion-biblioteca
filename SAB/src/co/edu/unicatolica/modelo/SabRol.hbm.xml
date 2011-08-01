@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/06/2011 05:24:29 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.unicatolica.modelo.SabRol" table="sab_rol" schema="public">
+        <id name="idRol" type="java.lang.Long">
+            <column name="id_rol" precision="8" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">seq_sab_rol</param>
+            </generator>
+        </id>
+        <property name="descripcion" type="java.lang.String">
+            <column name="descripcion" length="20" not-null="true" />
+        </property>
+        <set name="sabUsuarios" inverse="true" lazy="true" table="sab_usuario" fetch="select">
+            <key>
+                <column name="id_rol" precision="8" scale="0" />
+            </key>
+            <one-to-many class="co.edu.unicatolica.modelo.SabUsuario" />
+        </set>
+    </class>
+</hibernate-mapping>

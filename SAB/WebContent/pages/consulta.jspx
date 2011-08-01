@@ -1,0 +1,95 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<html>
+	<body>
+	<f:view>
+		<ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+			<br />
+			<ui:define name="body">
+				<ice:form>
+					<table cellpadding="0" cellspacing="0" style="width: 73%;">
+						<tr>
+							<td width="25%">
+							<fieldset style="height: 700px;"><ui:include
+								src="/WEB-INF/facelets/menuConsulta.jspx" /></fieldset>
+							</td>
+							<td width="75%">
+							<fieldset style="height: 700px; width: 98%;">
+							<div align="center"><ice:outputText value="#{lbl.consultaT}"></ice:outputText>
+							<ice:panelGrid>
+								<ice:dataTable value="#{sabConsultaLibroVista.listConsulta}"
+									var="sabLibros">
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.id}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{sabLibros.idLibro}"></ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.titulo}"></ice:outputText>
+										</f:facet>
+										<ice:outputText
+											value="#{sabLibros.titulo} #{sabLibros.sabVolumen.descripcion}"></ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.edicion}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{sabLibros.sabEdicion.descripcion}"></ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.editorial}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{sabLibros.sabEditorial.nombre}"></ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.area}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{sabLibros.sabArea.nombre}"></ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.cantidad}"></ice:outputText>
+										</f:facet>
+										<div align="center"><ice:outputText
+											value="#{sabLibros.cantidad}"></ice:outputText></div>
+									</ice:column>
+									<ice:column style="width:10%;">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.cantidad_prestados}"></ice:outputText>
+										</f:facet>
+										<div align="center"><ice:outputText
+											value="#{sabLibros.cantidadPrestados}"></ice:outputText></div>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl.estado_libro}"></ice:outputText>
+										</f:facet>
+										<div align="center"><ice:outputText
+											value="#{sabLibros.sabEstadoLibro.descripcion}"></ice:outputText>
+										</div>
+								</ice:column>
+								</ice:dataTable>
+							</ice:panelGrid></div>
+							</fieldset>
+							</td>
+						</tr>
+					</table>
+				</ice:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+	</body>
+	</html>
+</jsp:root>

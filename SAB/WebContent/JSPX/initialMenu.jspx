@@ -1,0 +1,132 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <html>
+        <body>
+            <f:view>
+                <ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+                    <ui:define name="header">
+                        <ui:include src="/WEB-INF/facelets/header.jspx" />
+                    </ui:define>
+                    <br />
+                    <ui:define name="body">
+                        <ice:form>
+                            <br />
+                            <br />
+                            <div align="center">
+                               
+                               
+                               <ice:panelCollapsible expanded="true" toggleOnClick="true" 	style="width: 100%">
+									<f:facet name="header">
+										<ice:outputLabel value="Welcome to SAB" />
+									</f:facet>
+                            
+                                <ice:panelGrid columns="3" border="0" id="pnlPrincipal">
+                                
+                                                                            <ice:commandLink id="cmdSabArea"
+                                            value="SabArea" action="goSabArea">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabAreaSABDataTable"
+                                            value="SabArea-Data" action="goSabAreaListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabAreaSABDataTableEditable"
+                                            value="SabArea-Data-Editable" action="goSabAreaListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabAutor"
+                                            value="SabAutor" action="goSabAutor">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabAutorSABDataTable"
+                                            value="SabAutor-Data" action="goSabAutorListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabAutorSABDataTableEditable"
+                                            value="SabAutor-Data-Editable" action="goSabAutorListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabEdicion"
+                                            value="SabEdicion" action="goSabEdicion">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabEdicionSABDataTable"
+                                            value="SabEdicion-Data" action="goSabEdicionListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabEdicionSABDataTableEditable"
+                                            value="SabEdicion-Data-Editable" action="goSabEdicionListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabEditorial"
+                                            value="SabEditorial" action="goSabEditorial">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabEditorialSABDataTable"
+                                            value="SabEditorial-Data" action="goSabEditorialListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabEditorialSABDataTableEditable"
+                                            value="SabEditorial-Data-Editable" action="goSabEditorialListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabEstadoLibro"
+                                            value="SabEstadoLibro" action="goSabEstadoLibro">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabEstadoLibroSABDataTable"
+                                            value="SabEstadoLibro-Data" action="goSabEstadoLibroListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabEstadoLibroSABDataTableEditable"
+                                            value="SabEstadoLibro-Data-Editable" action="goSabEstadoLibroListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabLibro"
+                                            value="SabLibro" action="goSabLibro">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabLibroSABDataTable"
+                                            value="SabLibro-Data" action="goSabLibroListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabLibroSABDataTableEditable"
+                                            value="SabLibro-Data-Editable" action="goSabLibroListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabPrestamo"
+                                            value="SabPrestamo" action="goSabPrestamo">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabPrestamoSABDataTable"
+                                            value="SabPrestamo-Data" action="goSabPrestamoListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabPrestamoSABDataTableEditable"
+                                            value="SabPrestamo-Data-Editable" action="goSabPrestamoListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabRol"
+                                            value="SabRol" action="goSabRol">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabRolSABDataTable"
+                                            value="SabRol-Data" action="goSabRolListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabRolSABDataTableEditable"
+                                            value="SabRol-Data-Editable" action="goSabRolListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabUsuario"
+                                            value="SabUsuario" action="goSabUsuario">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabUsuarioSABDataTable"
+                                            value="SabUsuario-Data" action="goSabUsuarioListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabUsuarioSABDataTableEditable"
+                                            value="SabUsuario-Data-Editable" action="goSabUsuarioListDataTableEditable">
+                                        </ice:commandLink>
+                                                                            <ice:commandLink id="cmdSabVolumen"
+                                            value="SabVolumen" action="goSabVolumen">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabVolumenSABDataTable"
+                                            value="SabVolumen-Data" action="goSabVolumenListDataTable">
+                                        </ice:commandLink>
+                                        <ice:commandLink id="cmdSabVolumenSABDataTableEditable"
+                                            value="SabVolumen-Data-Editable" action="goSabVolumenListDataTableEditable">
+                                        </ice:commandLink>
+                                                                    </ice:panelGrid>
+                              </ice:panelCollapsible>
+                            </div>
+                        </ice:form>
+                    </ui:define>
+                    <ui:define name="footer">
+                        <ui:include src="/WEB-INF/facelets/footer.jspx" />
+                    </ui:define>
+                </ui:composition>
+            </f:view>
+        </body>
+    </html>
+</jsp:root>

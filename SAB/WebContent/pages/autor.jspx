@@ -1,0 +1,82 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<html>
+	<body>
+	<f:view>
+		<ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+			<br />
+			<ui:define name="body">
+				<ice:form>
+					<table cellpadding="0" cellspacing="0" style="width: 73%;">
+						<tr>
+							<td width="25%">
+							<fieldset style="height: 700px;"><ui:include
+								src="/WEB-INF/facelets/menu.jspx" /></fieldset>
+							</td>
+							<td width="75%">
+							<fieldset style="height: 700px; width: 98%;">
+							<div align="center">
+							<ice:outputText value="#{lbl.autorT}"></ice:outputText>
+							<ice:panelGrid columns="2">
+								<ice:outputText value="#{lbl.nombre}"></ice:outputText>
+								<ice:inputText binding="#{sabAutorVista.txtNombre}"></ice:inputText>
+							</ice:panelGrid></div>
+							<div align="center"><ice:panelGrid columns="4">
+								<ice:commandButton styleClass="button" value="#{lbl.guardar}"
+									action="#{sabAutorVista.action_save}"
+									binding="#{sabAutorVista.btnSave}">
+								</ice:commandButton>
+								<ice:commandButton styleClass="button" value="#{lbl.modificar}"
+									action="#{sabAutorVista.action_modify}"
+									binding="#{sabAutorVista.btnModify}">
+								</ice:commandButton>
+								<ice:commandButton styleClass="button" value="#{lbl.borrar}"
+									action="#{sabAutorVista.action_delete}"
+									binding="#{sabAutorVista.btnDelete}"
+									onclick="if(!confirm('#{lbl.eliminar_autor}')){ return; };">
+								</ice:commandButton>
+								<ice:commandButton styleClass="button" value="#{lbl.limpiar}"
+									action="#{sabAutorVista.action_clear}"
+									binding="#{sabAutorVista.btnClear}">
+								</ice:commandButton>
+							</ice:panelGrid> 
+							<ice:dataTable value="#{sabAutorVista.sabAutor}" var="sabAutor">
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.id}"></ice:outputText>
+									</f:facet>
+									<ice:commandLink value="#{sabAutor.idAutor}"
+										action="#{sabAutorVista.action_commandLink}">
+										<f:setPropertyActionListener value="#{sabAutor.idAutor}"
+											target="#{sabAutorVista.idAutor}" />
+									</ice:commandLink>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.nombre}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabAutor.nombre}"></ice:outputText>
+								</ice:column>
+							</ice:dataTable></div>
+							</fieldset>
+							</td>
+						</tr>
+					</table>
+				</ice:form>
+			</ui:define>
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>
+		</ui:composition>
+	</f:view>
+	</body>
+	</html>
+</jsp:root>

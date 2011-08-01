@@ -1,0 +1,93 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<html>
+	<body>
+	<f:view>
+		<ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+			<br />
+			<ui:define name="body">
+				<ice:form>
+					<table cellpadding="0" cellspacing="0" style="width: 73%;">
+						<tr>
+							<td width="25%">
+							<fieldset style="height: 700px;"><ui:include
+								src="/WEB-INF/facelets/menu.jspx" /></fieldset>
+							</td>
+							<td width="75%">
+							<fieldset style="height: 700px; width: 98%;">
+							
+							<div align="center">
+							<ice:outputText value="#{lbl.editorialT}"></ice:outputText>
+							<ice:panelGrid columns="2">
+								<ice:outputText value="#{lbl.nombre}"></ice:outputText>
+								<ice:inputText binding="#{sabEditorialVista.txtNombre}"></ice:inputText>
+								<ice:outputText value="#{lbl.estado}"></ice:outputText>
+								<ice:selectOneMenu value="#{sabEditorialVista.idEstado}" >
+								<f:selectItems value="#{sabEditorialVista.listEstado}"/>
+								</ice:selectOneMenu>
+							</ice:panelGrid></div>
+							<div align="center"><ice:panelGrid columns="4">
+								<ice:commandButton styleClass="button" value="#{lbl.guardar}"
+									action="#{sabEditorialVista.action_save}"
+									binding="#{sabEditorialVista.btnSave}">
+								</ice:commandButton>
+								<ice:commandButton styleClass="button" value="#{lbl.modificar}"
+									action="#{sabEditorialVista.action_modify}"
+									binding="#{sabEditorialVista.btnModify}">
+								</ice:commandButton>
+								<ice:commandButton styleClass="button" value="#{lbl.borrar}"
+									action="#{sabEditorialVista.action_delete}"
+									binding="#{sabEditorialVista.btnDelete}"
+									onclick="if(!confirm('#{lbl.eliminar_editorial}')){ return; };">
+								</ice:commandButton>
+								<ice:commandButton styleClass="button" value="#{lbl.limpiar}"
+									action="#{sabEditorialVista.action_clear}"
+									binding="#{sabEditorialVista.btnClear}">
+								</ice:commandButton>
+							</ice:panelGrid>
+							<ice:dataTable value="#{sabEditorialVista.sabEditorial}" var="sabEditorial">
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.id}"></ice:outputText>
+									</f:facet>
+									<ice:commandLink value="#{sabEditorial.idEditorial}"
+										action="#{sabEditorialVista.action_commandLink}">
+										<f:setPropertyActionListener value="#{sabEditorial.idEditorial}"
+											target="#{sabEditorialVista.idEditorial}" />
+									</ice:commandLink>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.nombre}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabEditorial.nombre}"></ice:outputText>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.estado}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabEditorial.estado eq lbl.estadoActivo ? 'Activo' : 'Inactivo'}"></ice:outputText>
+								</ice:column>
+							</ice:dataTable></div>
+							</fieldset>
+							</td>
+						</tr>
+					</table>
+				</ice:form>
+			</ui:define>
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>
+		</ui:composition>
+	</f:view>
+	</body>
+	</html>
+</jsp:root>
