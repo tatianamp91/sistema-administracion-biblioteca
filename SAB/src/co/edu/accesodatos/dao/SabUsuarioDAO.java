@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
 
 import co.edu.accesodatos.session.HibernateSessionFactory;
 import co.edu.unicatolica.modelo.SabUsuario;
@@ -257,4 +260,32 @@ public class SabUsuarioDAO {
             throw re;
         }
     }
+    
+    public SabUsuario consultarPorCorreoCodigo(String correo, Long codigo) {
+        log.debug("finding SapUsuario findPageSapUsuario");
+        try {
+        	DetachedCriteria criteria = DetachedCriteria.forClass(SabUsuario.class);
+        	criteria.add(Restrictions.eq("email", correo));
+        	criteria.add(Restrictions.eq("codigo", codigo));
+        	
+        	List<SabUsuario> usuario = findByCriteria(criteria);
+        	if(usuario != null && !usuario.isEmpty()){
+        		return usuario.get(0);
+        	}else{
+        		return null;
+        	}
+        } catch (RuntimeException re) {
+            throw re;
+        }
+    }
+    
+    public List<SabUsuario> findByCriteria(DetachedCriteria criteria) {
+		if (criteria == null) {
+			throw new IllegalArgumentException("DetachedCriteria must not be null");
+		}
+		Criteria executableCriteria = criteria.getExecutableCriteria(getSession());
+		return executableCriteria.list();
+	}
+
+
 }

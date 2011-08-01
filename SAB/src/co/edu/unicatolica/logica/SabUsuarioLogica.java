@@ -264,6 +264,17 @@ public class SabUsuarioLogica {
 
         return entity;
     }
+    
+    public SabUsuario consultarPorCorreoCodigo(String correo, Long codigo)throws Exception{
+		SabUsuario entity =null;
+		try {
+			entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().consultarPorCorreoCodigo(correo, codigo);
+		} catch (Exception e) {
+			throw e;
+		}
+		return entity;
+	}
+
 
     public List<SabUsuario> findPageSabUsuario(String sortColumnName,
         boolean sortAscending, int startRow, int maxResults)

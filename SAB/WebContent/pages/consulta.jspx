@@ -19,7 +19,7 @@
 						<tr>
 							<td width="25%">
 							<fieldset style="height: 700px;"><ui:include
-								src="/WEB-INF/facelets/menuConsulta.jspx" /></fieldset>
+								src="/WEB-INF/facelets/menu.jspx" /></fieldset>
 							</td>
 							<td width="75%">
 							<fieldset style="height: 700px; width: 98%;">

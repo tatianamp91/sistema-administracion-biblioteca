@@ -537,8 +537,12 @@ public class DelegadoNegocioVista {
 
     public static List<SabUsuario> getSabUsuario() throws Exception {
         SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
-
         return sabUsuarioLogic.getSabUsuario();
+    }
+    
+    public static SabUsuario consultarUsuarioPorCorreoCodigo(String correo, Long codigo) throws Exception {
+        SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
+        return sabUsuarioLogic.consultarPorCorreoCodigo(correo, codigo);
     }
 
     public static void saveSabUsuario(Long codigo, String email,

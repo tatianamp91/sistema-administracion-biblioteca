@@ -3,39 +3,39 @@
 	cellspacing="3" width="100%">
 
 	<!-- ADMINISTRACION -->
-	<div class="marcoImportante"><ice:outputText
-		value="#{lbl.mnuAdministracion}" styleClass="texto1"></ice:outputText>
-	</div>
-	<ice:commandLink value="#{lbl.mnuArea}" styleClass="enlace1"
-		action="goArea"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuAutor}" styleClass="enlace1"
-		action="goAutor"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuEdicion}" styleClass="enlace1"
-		action="goEdicion"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuEditorial}" styleClass="enlace1"
-		action="goEditorial"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuEstadoLibro}" styleClass="enlace1"
-		action="goEstadoLibro"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuLibro}" styleClass="enlace1"
-		action="goLibro"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuRol}" styleClass="enlace1"
-		action="goRol"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuUsuario}" styleClass="enlace1"
-		action="goUsuario"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuVolumen}" styleClass="enlace1"
-		action="goVolumen"></ice:commandLink>
+	<ice:panelGroup styleClass="marcoImportante" rendered="#{sabMenuVista.administrador}">
+		<ice:outputText value="#{lbl.mnuAdministracion}" styleClass="texto1"></ice:outputText>
+	</ice:panelGroup>
+	<ice:commandLink value="#{lbl.mnuArea}" styleClass="enlace1" action="goArea" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuAutor}" styleClass="enlace1" action="goAutor" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuEdicion}" styleClass="enlace1" action="goEdicion" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuEditorial}" styleClass="enlace1" action="goEditorial" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuEstadoLibro}" styleClass="enlace1" action="goEstadoLibro" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuLibro}" styleClass="enlace1" action="goLibro" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuRol}" styleClass="enlace1" action="goRol" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuUsuario}" styleClass="enlace1" action="goUsuario" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuVolumen}" styleClass="enlace1" action="goVolumen" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
 
 	<!-- PRESTAMO -->
-	<div class="marcoImportante"><ice:outputText
-		value="#{lbl.mnuPrest}" styleClass="texto1"></ice:outputText></div>
-	<ice:commandLink value="#{lbl.mnuPrestamo}" styleClass="enlace1"
-		action="goPrestamo"></ice:commandLink>
+	<ice:panelGroup styleClass="marcoImportante">
+		<ice:outputText value="#{lbl.mnuPrest}" styleClass="texto1"></ice:outputText>
+	</ice:panelGroup>
+	<ice:commandLink value="#{lbl.mnuPrestamo}" styleClass="enlace1" action="goPrestamo"></ice:commandLink>
+
+	<!-- CONSULTA -->
+	<ice:panelGroup styleClass="marcoImportante">
+		<ice:outputText value="#{lbl.mnuConsultas}" styleClass="texto1"></ice:outputText>
+	</ice:panelGroup>
+	<ice:commandLink value="#{lbl.mnuConsulta}" styleClass="enlace1" action="goConsulta"></ice:commandLink>
+
 	<!-- SALIDA -->
-	<div class="marcoImportante"><ice:outputText
-		value="#{lbl.mnuSalida}" styleClass="texto1"></ice:outputText></div>
+	<ice:panelGroup styleClass="marcoImportante">
+		<ice:outputText value="#{lbl.mnuSalida}" styleClass="texto1"></ice:outputText>
+	</ice:panelGroup>
 	<ice:commandLink value="#{lbl.mnuCerrarSes}" styleClass="enlace1" />
 
 	<br />
-	<div align="center"><ice:outputConnectionStatus
-		displayHourglassWhenActive="true" showPopupOnDisconnect="true" /></div>
+	<div align="center">
+		<ice:outputConnectionStatus displayHourglassWhenActive="true" showPopupOnDisconnect="true" />
+	</div>
 </ice:panelGrid></div>
