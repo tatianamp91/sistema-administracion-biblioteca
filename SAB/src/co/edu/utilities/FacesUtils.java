@@ -52,6 +52,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import co.edu.exceptions.ZMessManager;
+import co.edu.unicatolica.modelo.SabRol;
+import co.edu.unicatolica.modelo.SabUsuario;
 
 public class FacesUtils {
 
@@ -398,6 +400,48 @@ public class FacesUtils {
 			return bundle.getString(key);
 		} catch (Exception e) {
 			return "??" + key + "??";
+		}
+	}
+	
+	public static String getParametros(String key) {
+		try {
+			String messageBundle = "co.edu.presentacion.etiquetas.parametros";
+
+			ResourceBundle bundle = getResourceBundle(messageBundle);
+			return bundle.getString(key);
+		} catch (Exception e) {
+			return "??" + key + "??";
+		}
+	}
+	
+	protected static Object getUserAuth(){
+		return getfromSession("usuario");
+	}
+	
+	public static String getUserName(){
+		SabUsuario sabUsuario = (SabUsuario) getUserAuth();
+		if(sabUsuario != null){
+			return sabUsuario.getNombreCompleto();
+		}else{
+			return null;
+		}
+	}
+	
+	public static Long getUserId(){
+		SabUsuario sapUsuario = (SabUsuario) getUserAuth();
+		if(sapUsuario != null){
+			return sapUsuario.getIdUsuario();
+		}else{
+			return null;
+		}
+	}
+	
+	public static SabRol getUserRol(){
+		SabUsuario sapUsuario = (SabUsuario) getUserAuth();
+		if(sapUsuario != null){
+			return sapUsuario.getSabRol();
+		}else{
+			return null;
 		}
 	}
 }

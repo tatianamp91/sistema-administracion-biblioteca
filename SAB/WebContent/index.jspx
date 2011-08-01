@@ -1,0 +1,61 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<html>
+	<body>
+	<f:view>
+		<ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+			<br />
+			<ui:define name="body">
+				<ice:form>
+					<table cellpadding="0" cellspacing="0" style="width: 81%;">
+						<tr>
+							<td width="100%">
+							<fieldset style="height: 348px; width: 98%;">
+							<div align="center">
+								<br/>
+								<br/>
+								<br/>
+								<br/>
+								<ice:outputText value="#{lbl.inicioSesion}" styleClass="titulo"></ice:outputText>
+								<br/>
+								<br/>
+							<table>
+								<tr>
+									<td><ice:outputText value="#{lbl.email}"></ice:outputText></td>
+									<td><ice:inputText binding="#{sabInicioSesionVista.usuario}" ></ice:inputText> </td>
+								</tr>
+								<tr>
+									<td><ice:outputText value="#{lbl.codigo}"></ice:outputText></td>
+									<td><ice:inputSecret binding="#{sabInicioSesionVista.contrasenia}"></ice:inputSecret> </td>
+								</tr>
+								<tr align="center">
+									<td colspan="2">
+										<ice:commandButton styleClass="button" value="#{lbl.acceder}" action="#{sabInicioSesionVista.actionIngresar}"/> 
+										<ice:commandButton styleClass="button" value="#{lbl.limpiar}" action="#{sabInicioSesionVista.actionLimpiar}"/>
+	 									<ice:commandLink value="#{lbl.invitado}" styleClass="enlace2" action="#{sabInicioSesionVista.actionIngresarInvitado}" />
+ 									</td>
+								</tr>
+							</table>
+							</div>
+							</fieldset>
+							</td>
+						</tr>
+					</table>
+				</ice:form>
+			</ui:define>
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>
+		</ui:composition>
+	</f:view>
+	</body>
+	</html>
+</jsp:root>

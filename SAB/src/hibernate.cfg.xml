@@ -7,7 +7,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.password">POSTGRES</property>
+        <property name="hibernate.connection.password">postgres</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/BIBLIOTECA</property>
         <property name="hibernate.connection.username">postgres</property>
         <mapping resource="co/edu/unicatolica/modelo/SabPrestamo.hbm.xml" />
