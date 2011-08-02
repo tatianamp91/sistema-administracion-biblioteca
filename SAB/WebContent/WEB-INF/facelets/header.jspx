@@ -1,7 +1,7 @@
 <div id="header" align="center" xmlns:ui="http://java.sun.com/jsf/facelets">
 <fieldset style="width: 80%;">
 	<div class="background">
-		<img src="#{request.contextPath}/images/unicatolica.png" style="z-index:1" class="background"/>
+		<img src="#{request.contextPath}/images/Unicatolica2.png" style="z-index:1" class="background"/>
 	</div>
 </fieldset>
 </div>
