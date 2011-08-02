@@ -160,7 +160,7 @@ public class SabAreaDAO {
         log.debug("finding all SabArea instances");
 
         try {
-            String queryString = "from SabArea";
+            String queryString = "from SabArea order by idArea";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

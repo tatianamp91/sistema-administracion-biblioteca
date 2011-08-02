@@ -15,16 +15,17 @@
 			<br />
 			<ui:define name="body">
 				<ice:form>
-					<table cellpadding="0" cellspacing="0" style="width: 80%;">
+					<table cellpadding="0" cellspacing="0" style="width: 81%;">
 						<tr>
-							<td width="25%">
+							<td width="20%">
 							<fieldset style="height: 700px;"><ui:include
 								src="/WEB-INF/facelets/menu.jspx" /></fieldset>
 							</td>
-							<td width="75%">
+							<td width="80%">
 							<fieldset style="height: 700px; width: 98%;">
 							<div align="center">
-							<ice:outputText value="#{lbl.prestamoT}"></ice:outputText>
+							<ice:outputText value="#{lbl.prestamoT}" styleClass="titulo"></ice:outputText>
+							<br/>
 								<ice:panelGrid columns="4">
 									<ice:outputText value="#{lbl.codigoUsuario}"></ice:outputText>
 									<ice:inputText binding="#{sabPrestamoVista.codigoUsuario}"

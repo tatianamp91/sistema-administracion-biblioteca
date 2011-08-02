@@ -14,6 +14,8 @@ import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabAreaVista {
 
+	private SabMensajesVista mensaje;
+	
     private HtmlInputText txtNombre;
     private Long idEstado;
     private Long idArea;
@@ -26,6 +28,8 @@ public class SabAreaVista {
     private List<SabArea> sabArea;
 
     public SabAreaVista() {
+    	mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+    	
     	txtNombre = new HtmlInputText();
     	btnSave = new HtmlCommandButton();
     	btnDelete = new HtmlCommandButton();
@@ -55,10 +59,10 @@ public class SabAreaVista {
         try {
             DelegadoNegocioVista.saveSabArea((idEstado), 
             FacesUtils.checkString(txtNombre));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("area.guardada"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("area.guardada"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+            mensaje.addErrorMessage(e.getMessage());
         }
         return "";
     }
@@ -66,10 +70,10 @@ public class SabAreaVista {
     public String action_delete() {
         try {
             DelegadoNegocioVista.deleteSabArea (idArea);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("area.eliminada"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("area.eliminada"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
         return "";
     }
@@ -90,7 +94,7 @@ public class SabAreaVista {
     			throw new Exception("NO SE ENCONTRO EL AREA");
     		}
     	}catch (Exception e){
-    		FacesUtils.addErrorMessage(e.getMessage());	
+    		mensaje.addErrorMessage(e.getMessage());	
     	}return "";
  	}
     
@@ -99,10 +103,10 @@ public class SabAreaVista {
 
             DelegadoNegocioVista.updateSabArea((idEstado), (idArea),
             FacesUtils.checkString(txtNombre));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("area.modificada"));         
+            mensaje.addInfoMessage(FacesUtils.getMensaje("area.modificada"));         
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -112,7 +116,7 @@ public class SabAreaVista {
             try {
                 sabArea = DelegadoNegocioVista.getSabArea();
             } catch (Exception e) {
-                FacesUtils.addErrorMessage(e.getMessage());
+            	mensaje.addErrorMessage(e.getMessage());
             }
             return sabArea;
         }

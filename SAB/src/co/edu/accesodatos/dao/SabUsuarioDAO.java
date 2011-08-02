@@ -279,6 +279,23 @@ public class SabUsuarioDAO {
         }
     }
     
+    public SabUsuario consultarPorCodigo(Long codigo) {
+        log.debug("finding SapUsuario findPageSapUsuario");
+        try {
+        	DetachedCriteria criteria = DetachedCriteria.forClass(SabUsuario.class);
+        	criteria.add(Restrictions.eq("codigo", codigo));
+        	
+        	List<SabUsuario> usuario = findByCriteria(criteria);
+        	if(usuario != null && !usuario.isEmpty()){
+        		return usuario.get(0);
+        	}else{
+        		return null;
+        	}
+        } catch (RuntimeException re) {
+            throw re;
+        }
+    }
+    
     public List<SabUsuario> findByCriteria(DetachedCriteria criteria) {
 		if (criteria == null) {
 			throw new IllegalArgumentException("DetachedCriteria must not be null");

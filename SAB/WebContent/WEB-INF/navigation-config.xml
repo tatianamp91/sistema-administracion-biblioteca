@@ -5,7 +5,7 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>goInicio</from-outcome>
-			<to-view-id>index.jspx</to-view-id>
+			<to-view-id>/index.jspx</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>

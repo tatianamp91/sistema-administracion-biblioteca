@@ -1,32 +1,25 @@
 package co.edu.unicatolica.logica;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import co.edu.accesodatos.fabricaDao.XMLHibernateDaoFactory;
 import co.edu.accesodatos.session.HibernateSessionFactory;
-import co.edu.exceptions.ZMessManager;
 import co.edu.unicatolica.modelo.SabPrestamo;
 import co.edu.unicatolica.modelo.SabRol;
 import co.edu.unicatolica.modelo.SabUsuario;
+import co.edu.utilities.FacesUtils;
 import co.edu.utilities.Utilities;
 
-
-
 public class SabUsuarioLogica {
-    public List<SabUsuario> getSabUsuario() throws Exception {
+    
+	public List<SabUsuario> getSabUsuario() throws Exception {
         List<SabUsuario> list = new ArrayList<SabUsuario>();
-
         try {
-            list = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO()
-                                         .findAll();
+            list = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().findAll();
         } catch (Exception e) {
-            throw new ZMessManager().new GettingException(ZMessManager.ALL +
-                "SabUsuario");
-        } finally {
+            throw e;
         }
-
         return list;
     }
 
@@ -37,64 +30,50 @@ public class SabUsuarioLogica {
 
         try {
             if (codigo == null) {
-                throw new ZMessManager().new EmptyFieldException("codigo");
+                throw new Exception(FacesUtils.getMensaje("error.codigo"));
             }
 
-            if ((codigo != null) &&
-                    (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
-                        codigo, 10, 0) == false)) {
-                throw new ZMessManager().new NotValidFormatException("codigo");
+            if ((codigo != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + codigo, 10, 0) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
             }
 
             if (email == null) {
-                throw new ZMessManager().new EmptyFieldException("email");
+                throw new Exception(FacesUtils.getMensaje("error.correo"));
             }
 
-            if ((email != null) &&
-                    (Utilities.checkWordAndCheckWithlength(email, 50) == false)) {
-                throw new ZMessManager().new NotValidFormatException("email");
+            if ((email != null) && (Utilities.checkWordAndCheckWithlength(email, 50) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.correo.no.valido"));
             }
-
 
             if (nombreCompleto == null) {
-                throw new ZMessManager().new EmptyFieldException(
-                    "nombreCompleto");
+                throw new Exception(FacesUtils.getMensaje("error.nombre"));
             }
 
-            if ((nombreCompleto != null) &&
-                    (Utilities.checkWordAndCheckWithlength(nombreCompleto, 50) == false)) {
-                throw new ZMessManager().new NotValidFormatException(
-                    "nombreCompleto");
+            if ((nombreCompleto != null) && (Utilities.checkWordAndCheckWithlength(nombreCompleto, 50) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.nombre.no.valido"));
             }
 
             if (numIdentificacion == null) {
-                throw new ZMessManager().new EmptyFieldException(
-                    "numIdentificacion");
+                throw new Exception(FacesUtils.getMensaje("error.numId"));
             }
 
-            if ((numIdentificacion != null) &&
-                    (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
-                        numIdentificacion, 20, 0) == false)) {
-                throw new ZMessManager().new NotValidFormatException(
-                    "numIdentificacion");
+            if ((numIdentificacion != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + numIdentificacion, 20, 0) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.numId.no.valido"));
             }
 
             if (idRol_SabRol == null) {
-                throw new ZMessManager().new EmptyFieldException("idRol_SabRol");
+                throw new Exception(FacesUtils.getMensaje("error.idRol"));
             }
 
-            if ((idRol_SabRol != null) &&
-                    (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
-                        idRol_SabRol, 8, 0) == false)) {
-                throw new ZMessManager().new NotValidFormatException(
-                    "idRol_SabRol");
+            if ((idRol_SabRol != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idRol_SabRol, 8, 0) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.idRol.no.valido"));
             }
 
             SabRolLogica logicSabRol1 = new SabRolLogica();
             SabRol sabRolClass = logicSabRol1.getSabRol(idRol_SabRol);
 
             if (sabRolClass == null) {
-                throw new ZMessManager().new ForeignException("sabRol");
+                throw new Exception(FacesUtils.getMensaje("error.rol.no.encontrado"));
             }
 
             entity = new SabUsuario();
@@ -118,29 +97,25 @@ public class SabUsuarioLogica {
         SabUsuario entity = null;
 
         if (idUsuario == null) {
-            throw new ZMessManager().new EmptyFieldException("idUsuario");
+            throw new Exception(FacesUtils.getMensaje("error.idUsuario"));
         }
 
         List<SabPrestamo> sabPrestamos = null;
         entity = getSabUsuario(idUsuario);
 
         if (entity == null) {
-            throw new ZMessManager().new EmptyFieldException("SabUsuario");
+            throw new Exception(FacesUtils.getMensaje("error.usuario.no.encontrado"));
         }
 
         try {
-            sabPrestamos = XMLHibernateDaoFactory.getInstance()
-                                                 .getSabPrestamoDAO()
-                                                 .findByProperty("sabUsuario.idUsuario",
-                    idUsuario);
+            sabPrestamos = XMLHibernateDaoFactory.getInstance().getSabPrestamoDAO().findByProperty("sabUsuario.idUsuario",idUsuario);
 
             if (Utilities.validationsList(sabPrestamos) == true) {
-                throw new ZMessManager().new DeletingException("sabPrestamos");
+                throw new Exception(FacesUtils.getMensaje("error.usuario.no.eliminar"));
             }
 
             HibernateSessionFactory.beginTransaction();
-            XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO()
-                                  .delete(entity);
+            XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().delete(entity);
             HibernateSessionFactory.commit();
         } catch (Exception e) {
             HibernateSessionFactory.rollback();
@@ -156,81 +131,65 @@ public class SabUsuarioLogica {
         SabUsuario entity = null;
 
         try {
-            if (codigo == null) {
-                throw new ZMessManager().new EmptyFieldException("codigo");
+        	if (codigo == null) {
+                throw new Exception(FacesUtils.getMensaje("error.codigo"));
             }
 
-            if ((codigo != null) &&
-                    (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
-                        codigo, 10, 0) == false)) {
-                throw new ZMessManager().new NotValidFormatException("codigo");
+            if ((codigo != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + codigo, 10, 0) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
             }
 
             if (email == null) {
-                throw new ZMessManager().new EmptyFieldException("email");
+                throw new Exception(FacesUtils.getMensaje("error.correo"));
             }
 
-            if ((email != null) &&
-                    (Utilities.checkWordAndCheckWithlength(email, 50) == false)) {
-                throw new ZMessManager().new NotValidFormatException("email");
+            if ((email != null) && (Utilities.checkWordAndCheckWithlength(email, 50) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.correo.no.valido"));
             }
 
             if (idUsuario == null) {
-                throw new ZMessManager().new EmptyFieldException("idUsuario");
+                throw new Exception(FacesUtils.getMensaje("error.idUsuario"));
             }
 
-            if ((idUsuario != null) &&
-                    (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
-                        idUsuario, 8, 0) == false)) {
-                throw new ZMessManager().new NotValidFormatException(
-                    "idUsuario");
+            if ((idUsuario != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idUsuario, 8, 0) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.idUsuario.no.valido"));
             }
 
             if (nombreCompleto == null) {
-                throw new ZMessManager().new EmptyFieldException(
-                    "nombreCompleto");
+                throw new Exception(FacesUtils.getMensaje("error.nombre"));
             }
 
-            if ((nombreCompleto != null) &&
-                    (Utilities.checkWordAndCheckWithlength(nombreCompleto, 50) == false)) {
-                throw new ZMessManager().new NotValidFormatException(
-                    "nombreCompleto");
+            if ((nombreCompleto != null) && (Utilities.checkWordAndCheckWithlength(nombreCompleto, 50) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.nombre.no.valido"));
             }
 
             if (numIdentificacion == null) {
-                throw new ZMessManager().new EmptyFieldException(
-                    "numIdentificacion");
+                throw new Exception(FacesUtils.getMensaje("error.numId"));
             }
 
-            if ((numIdentificacion != null) &&
-                    (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
-                        numIdentificacion, 20, 0) == false)) {
-                throw new ZMessManager().new NotValidFormatException(
-                    "numIdentificacion");
+            if ((numIdentificacion != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + numIdentificacion, 20, 0) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.numId.no.valido"));
             }
 
             if (idRol_SabRol == null) {
-                throw new ZMessManager().new EmptyFieldException("idRol_SabRol");
+                throw new Exception(FacesUtils.getMensaje("error.idRol"));
             }
 
-            if ((idRol_SabRol != null) &&
-                    (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
-                        idRol_SabRol, 8, 0) == false)) {
-                throw new ZMessManager().new NotValidFormatException(
-                    "idRol_SabRol");
+            if ((idRol_SabRol != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idRol_SabRol, 8, 0) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.idRol.no.valido"));
             }
 
             SabRolLogica logicSabRol1 = new SabRolLogica();
             SabRol sabRolClass = logicSabRol1.getSabRol(idRol_SabRol);
 
             if (sabRolClass == null) {
-                throw new ZMessManager().new ForeignException("sabRol");
+                throw new Exception(FacesUtils.getMensaje("error.rol.no.encontrado"));
             }
 
             entity = getSabUsuario(idUsuario);
 
             if (entity == null) {
-                throw new ZMessManager(ZMessManager.ENTITY_NOENTITYTOUPDATE);
+                throw new Exception(FacesUtils.getMensaje("error.usuario.no.encontrado"));
             }
 
             entity.setCodigo(codigo);
@@ -240,8 +199,7 @@ public class SabUsuarioLogica {
             entity.setNumIdentificacion(numIdentificacion);
             entity.setSabRol(sabRolClass);
             HibernateSessionFactory.beginTransaction();
-            XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO()
-                                  .update(entity);
+            XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().update(entity);
             HibernateSessionFactory.commit();
         } catch (Exception e) {
             HibernateSessionFactory.rollback();
@@ -253,15 +211,11 @@ public class SabUsuarioLogica {
 
     public SabUsuario getSabUsuario(Long idUsuario) throws Exception {
         SabUsuario entity = null;
-
         try {
-            entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO()
-                                           .findById(idUsuario);
+            entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().findById(idUsuario);
         } catch (Exception e) {
-            throw new ZMessManager().new FindingException("SabUsuario");
-        } finally {
+            throw e;
         }
-
         return entity;
     }
     
@@ -275,202 +229,14 @@ public class SabUsuarioLogica {
 		return entity;
 	}
 
+    public SabUsuario consultarPorCodigo(Long codigo)throws Exception{
+		SabUsuario entity = null;
+		try {
+			entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().consultarPorCodigo(codigo);
+		} catch (Exception e) {
+			throw e;
+		}
+		return entity;
+	}
 
-    public List<SabUsuario> findPageSabUsuario(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        List<SabUsuario> entity = null;
-
-        try {
-            entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO()
-                                           .findPageSabUsuario(sortColumnName,
-                    sortAscending, startRow, maxResults);
-        } catch (Exception e) {
-            throw new ZMessManager().new FindingException("SabUsuario");
-        } finally {
-        }
-
-        return entity;
-    }
-
-    public Long findTotalNumberSabUsuario() throws Exception {
-        Long entity = null;
-
-        try {
-            entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO()
-                                           .findTotalNumberSabUsuario();
-        } catch (Exception e) {
-            throw new ZMessManager().new FindingException("SabUsuario Count");
-        } finally {
-        }
-
-        return entity;
-    }
-
-    /**
-    *
-    * @param varibles
-    *            este arreglo debera tener:
-    *
-    * [0] = String variable = (String) varibles[i]; representa como se llama la
-    * variable en el pojo
-    *
-    * [1] = Boolean booVariable = (Boolean) varibles[i + 1]; representa si el
-    * valor necesita o no ''(comillas simples)usado para campos de tipo string
-    *
-    * [2] = Object value = varibles[i + 2]; representa el valor que se va a
-    * buscar en la BD
-    *
-    * [3] = String comparator = (String) varibles[i + 3]; representa que tipo
-    * de busqueda voy a hacer.., ejemplo: where nombre=william o where nombre<>william,
-        * en este campo iria el tipo de comparador que quiero si es = o <>
-            *
-            * Se itera de 4 en 4..., entonces 4 registros del arreglo representan 1
-            * busqueda en un campo, si se ponen mas pues el continuara buscando en lo
-            * que se le ingresen en los otros 4
-            *
-            *
-            * @param variablesBetween
-            *
-            * la diferencia son estas dos posiciones
-            *
-            * [0] = String variable = (String) varibles[j]; la variable ne la BD que va
-            * a ser buscada en un rango
-            *
-            * [1] = Object value = varibles[j + 1]; valor 1 para buscar en un rango
-            *
-            * [2] = Object value2 = varibles[j + 2]; valor 2 para buscar en un rango
-            * ejempolo: a > 1 and a < 5 --> 1 seria value y 5 seria value2
-                *
-                * [3] = String comparator1 = (String) varibles[j + 3]; comparador 1
-                * ejemplo: a comparator1 1 and a < 5
-                    *
-                    * [4] = String comparator2 = (String) varibles[j + 4]; comparador 2
-                    * ejemplo: a comparador1>1  and a comparador2<5  (el original: a > 1 and a <
-                            * 5) *
-                            * @param variablesBetweenDates(en
-                            *            este caso solo para mysql)
-                            *  [0] = String variable = (String) varibles[k]; el nombre de la variable que hace referencia a
-                            *            una fecha
-                            *
-                            * [1] = Object object1 = varibles[k + 2]; fecha 1 a comparar(deben ser
-                            * dates)
-                            *
-                            * [2] = Object object2 = varibles[k + 3]; fecha 2 a comparar(deben ser
-                            * dates)
-                            *
-                            * esto hace un between entre las dos fechas.
-                            *
-                            * @return lista con los objetos que se necesiten
-                            * @throws Exception
-                            */
-    public List<SabUsuario> findByCriteria(Object[] variables,
-        Object[] variablesBetween, Object[] variablesBetweenDates)
-        throws Exception {
-        List<SabUsuario> list = new ArrayList<SabUsuario>();
-        String where = new String();
-        String tempWhere = new String();
-
-        if (variables != null) {
-            for (int i = 0; i < variables.length; i++) {
-                if ((variables[i] != null) && (variables[i + 1] != null) &&
-                        (variables[i + 2] != null) &&
-                        (variables[i + 3] != null)) {
-                    String variable = (String) variables[i];
-                    Boolean booVariable = (Boolean) variables[i + 1];
-                    Object value = variables[i + 2];
-                    String comparator = (String) variables[i + 3];
-
-                    if (booVariable.booleanValue()) {
-                        tempWhere = (tempWhere.length() == 0)
-                            ? ("(model." + variable + " " + comparator + " \'" +
-                            value + "\' )")
-                            : (tempWhere + " AND (model." + variable + " " +
-                            comparator + " \'" + value + "\' )");
-                    } else {
-                        tempWhere = (tempWhere.length() == 0)
-                            ? ("(model." + variable + " " + comparator + " " +
-                            value + " )")
-                            : (tempWhere + " AND (model." + variable + " " +
-                            comparator + " " + value + " )");
-                    }
-                }
-
-                i = i + 3;
-            }
-        }
-
-        if (variablesBetween != null) {
-            for (int j = 0; j < variablesBetween.length; j++) {
-                if ((variablesBetween[j] != null) &&
-                        (variablesBetween[j + 1] != null) &&
-                        (variablesBetween[j + 2] != null) &&
-                        (variablesBetween[j + 3] != null) &&
-                        (variablesBetween[j + 4] != null)) {
-                    String variable = (String) variablesBetween[j];
-                    Object value = variablesBetween[j + 1];
-                    Object value2 = variablesBetween[j + 2];
-                    String comparator1 = (String) variablesBetween[j + 3];
-                    String comparator2 = (String) variablesBetween[j + 4];
-                    tempWhere = (tempWhere.length() == 0)
-                        ? ("(" + value + " " + comparator1 + " " + variable +
-                        " and " + variable + " " + comparator2 + " " + value2 +
-                        " )")
-                        : (tempWhere + " AND (" + value + " " + comparator1 +
-                        " " + variable + " and " + variable + " " +
-                        comparator2 + " " + value2 + " )");
-                }
-
-                j = j + 4;
-            }
-        }
-
-        if (variablesBetweenDates != null) {
-            for (int k = 0; k < variablesBetweenDates.length; k++) {
-                if ((variablesBetweenDates[k] != null) &&
-                        (variablesBetweenDates[k + 1] != null) &&
-                        (variablesBetweenDates[k + 2] != null)) {
-                    String variable = (String) variablesBetweenDates[k];
-                    Object object1 = variablesBetweenDates[k + 1];
-                    Object object2 = variablesBetweenDates[k + 2];
-                    String value = null;
-                    String value2 = null;
-
-                    try {
-                        Date date1 = (Date) object1;
-                        Date date2 = (Date) object2;
-                        value = Utilities.formatDateWithoutTimeInAStringForBetweenWhere(date1);
-                        value2 = Utilities.formatDateWithoutTimeInAStringForBetweenWhere(date2);
-                    } catch (Exception e) {
-                        list = null;
-                        throw e;
-                    }
-
-                    tempWhere = (tempWhere.length() == 0)
-                        ? ("(model." + variable + " between \'" + value +
-                        "\' and \'" + value2 + "\')")
-                        : (tempWhere + " AND (model." + variable +
-                        " between \'" + value + "\' and \'" + value2 + "\')");
-                }
-
-                k = k + 2;
-            }
-        }
-
-        if (tempWhere.length() == 0) {
-            where = null;
-        } else {
-            where = "(" + tempWhere + ")";
-        }
-
-        try {
-            list = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO()
-                                         .findByCriteria(where);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        } finally {
-        }
-
-        return list;
-    }
 }
