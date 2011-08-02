@@ -13,6 +13,7 @@ import co.edu.unicatolica.modelo.SabLibroAutor;
 import co.edu.unicatolica.modelo.SabPrestamo;
 import co.edu.unicatolica.modelo.SabUsuario;
 import co.edu.utilities.FacesUtils;
+import co.edu.utilities.Utilities;
 
 import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
@@ -20,6 +21,9 @@ import com.icesoft.faces.component.selectinputdate.SelectInputDate;
 
 
 public class SabPrestamoVista  {
+	
+	private SabMensajesVista mensaje;
+
     private Long estadoPrestamo;
     private HtmlInputText idLibro;
     private String nombreLibro;
@@ -30,6 +34,7 @@ public class SabPrestamoVista  {
     private Long cantidad_prestados;
     private String area;
     private HtmlInputText codigoUsuario;
+    private Long idUsuario;
     private String nombreUsuario;
     private Long numId;
     private String email;
@@ -46,6 +51,8 @@ public class SabPrestamoVista  {
 
     public SabPrestamoVista() {
     	try {
+        	mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+
             txtFechaDevolucion = new SelectInputDate();
             txtFechaPrestamo =  new SelectInputDate();
             txtFechaRealDevolucion = new SelectInputDate();
@@ -64,16 +71,21 @@ public class SabPrestamoVista  {
 	    	action_clearLibro();
 	    	
 		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
-			e.printStackTrace();
+			mensaje.addErrorMessage(e.getMessage());
 		}
     }
     
     public void listener_txtIdLibro(ValueChangeEvent event){
     	try {
 	    	if(event.getNewValue()!=  null && !event.getNewValue().equals(event.getOldValue())){
-	    		if(!event.getNewValue().toString().isEmpty()){	
-	    			Long idLibro = Long.parseLong(event.getNewValue().toString());
+	    		if(!event.getNewValue().toString().isEmpty()){
+	    			Long idLibro;
+	    			if(Utilities.isNumeric(event.getNewValue().toString()) ){
+	    				idLibro = Long.parseLong(event.getNewValue().toString());
+	    			}else{
+	    				throw new Exception(FacesUtils.getMensaje("error.idLibro.no.valido"));
+	    			}
+	    			
 		    		SabLibro sabLibroo = DelegadoNegocioVista.getSabLibro(idLibro);
 		    		if(sabLibroo!=null){
 			    		nombreLibro = sabLibroo.getTitulo(); 
@@ -95,22 +107,27 @@ public class SabPrestamoVista  {
 			    		}
 			    		
 		    		}else{
-		    			action_clearLibro();
+		    			throw new Exception(FacesUtils.getMensaje("error.libro.no.encontrado"));
 		    		}
 	    		}else{
 	    			action_clearLibro();
 	    		}
 	    	}
     	}catch (Exception e) {
-    		FacesUtils.addErrorMessage(e.getMessage());
-			e.printStackTrace();
+    		action_clearLibro();
+    		mensaje.addErrorMessage(e.getMessage());
 		}
     }
     public void listener_txtCodigoUsuario(ValueChangeEvent event){
     	try {
 	    	if(event.getNewValue()!=  null && !event.getNewValue().equals(event.getOldValue())){
 	    		if(!event.getNewValue().toString().isEmpty()){
-		    		Long codigoUsuario = Long.parseLong(event.getNewValue().toString());
+	    			Long codigoUsuario;
+	    			if(Utilities.isNumeric(event.getNewValue().toString()) ){
+	    				codigoUsuario = Long.parseLong(event.getNewValue().toString());
+	    			}else{
+	    				throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
+	    			}
 		    		SabUsuario sabUsuarioo = DelegadoNegocioVista.consultarUsuarioPorCodigo(codigoUsuario);				
 		    		
 		    		if(sabUsuarioo!=null){
@@ -118,18 +135,18 @@ public class SabPrestamoVista  {
 			    		numId = sabUsuarioo.getNumIdentificacion();
 			    		email = sabUsuarioo.getEmail();
 			    		rol = sabUsuarioo.getSabRol().getDescripcion();
-			    		
+			    		idUsuario = sabUsuarioo.getIdUsuario();
 			    		sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(FacesUtils.checkLong(idLibro), codigoUsuario);
 		    		}else{
-		    			action_clearUsuario();
+		    			throw new Exception(FacesUtils.getMensaje("error.usuario.no.encontrado"));
 		    		}	    		
 		    	}else{
 	    			action_clearUsuario();
 		    	}
 	    	}
     	}catch (Exception e) {
-    		FacesUtils.addErrorMessage(e.getMessage());
-			e.printStackTrace();
+    		action_clearUsuario();
+    		mensaje.addErrorMessage(e.getMessage());
 		}
     }
   
@@ -143,10 +160,17 @@ public class SabPrestamoVista  {
 	        rol = null;
         	sabPrestamo = new ArrayList<SabPrestamo>();
     	}catch (Exception e) {
-			e.printStackTrace();
+    		mensaje.addErrorMessage(e.getMessage());
 		}
         return "";
     }
+    
+    public String action_clear() {
+    	action_clearUsuario();
+    	action_clearLibro();
+    	return "";
+    }
+    
     public String action_clearLibro() {
     	try{
 	    	idLibro.setValue(null);
@@ -157,16 +181,25 @@ public class SabPrestamoVista  {
 	        cantidad = null;
 	        cantidad_prestados = null;
 	        area = null;
-	        if(FacesUtils.checkLong(codigoUsuario) != null){
-	        	sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(null, FacesUtils.checkLong(codigoUsuario));
-	        }
+	        
+	        Long codigoUsuario;
+			if(this.codigoUsuario.getValue() != null && !this.codigoUsuario.getValue().toString().isEmpty()){
+				if(Utilities.isNumeric(this.codigoUsuario.getValue().toString()) ){
+					codigoUsuario = Long.parseLong(this.codigoUsuario.getValue().toString());
+					if(codigoUsuario != null){
+						sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(null, codigoUsuario);
+					}
+				}else{
+					throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
+				}
+			}
 	        txtFechaDevolucion.setValue(null);
 	        txtFechaDevolucion.setValue(null);
 	        txtFechaPrestamo.setValue(null);
 	        txtFechaRealDevolucion.setValue(null);
 	        autores = new ArrayList<SabLibroAutor>();
     	}catch (Exception e) {
-			e.printStackTrace();
+    		mensaje.addErrorMessage(e.getMessage());
 		}
         return "";
     }
@@ -177,17 +210,17 @@ public class SabPrestamoVista  {
         	estadoPrestamo = Long.parseLong(FacesUtils.getEtiqueta("estadoActivo"));
         	Date fechaActual = new Date();
         	if(fechaActual.before(FacesUtils.checkDate(txtFechaDevolucion))){
-	        	DelegadoNegocioVista.saveSabPrestamo(FacesUtils.checkLong(idLibro),FacesUtils.checkLong(codigoUsuario),
+	        	DelegadoNegocioVista.saveSabPrestamo(FacesUtils.checkLong(idLibro),idUsuario,
 	                (estadoPrestamo), FacesUtils.checkDate(txtFechaDevolucion), new Date(),
 	                FacesUtils.checkDate(txtFechaRealDevolucion));
-	            FacesUtils.addInfoMessage(FacesUtils.getMensaje("prestamo.guardadoUno") + nombreLibro + " " + FacesUtils.getMensaje("prestamo.guardadoDos"));
+	        	mensaje.addInfoMessage(FacesUtils.getMensaje("prestamo.guardadoUno") + nombreLibro + " " + FacesUtils.getMensaje("prestamo.guardadoDos"));
 	            action_clearUsuario();
 		    	action_clearLibro();
         	}else{
         		throw new Exception(FacesUtils.getMensaje("prestamo.no.guardado"));
         	}
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -198,11 +231,11 @@ public class SabPrestamoVista  {
         	Long idPrestamo = Long.parseLong(FacesUtils.getRequestParameter("idPrestamo")) ;
         	estadoPrestamo = Long.parseLong(FacesUtils.getEtiqueta("estadoInactivo"));
         	DelegadoNegocioVista.devolverSabPrestamo(idPrestamo, estadoPrestamo);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("prestamo.devuelto"));
+        	mensaje.addInfoMessage(FacesUtils.getMensaje("prestamo.devuelto"));
             action_clearLibro();
             action_clearUsuario();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -259,11 +292,6 @@ public class SabPrestamoVista  {
 	}
 
 	public List<SabPrestamo> getSabPrestamo() {
-//        try {
-//            sabPrestamo = DelegadoNegocioVista.getSabPrestamo();
-//        } catch (Exception e) {
-//            FacesUtils.addErrorMessage(e.getMessage());
-//        }
 		return sabPrestamo;
 	}
 
@@ -310,7 +338,6 @@ public class SabPrestamoVista  {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
-
 
 	public HtmlInputText getCodigoUsuario() {
 		return codigoUsuario;
@@ -398,6 +425,14 @@ public class SabPrestamoVista  {
 
 	public void setAutores(List<SabLibroAutor> autores) {
 		this.autores = autores;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 }

@@ -166,7 +166,7 @@ public class SabRolDAO {
         log.debug("finding all SabRol instances");
 
         try {
-            String queryString = "from SabRol";
+            String queryString = "from SabRol order by idRol";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

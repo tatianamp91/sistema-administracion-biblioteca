@@ -10,6 +10,9 @@ import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabEstadoLibroVista  {
+	
+	private SabMensajesVista mensaje;
+	
     private HtmlInputText txtDescripcion;
     private Long idEstado;
     private HtmlCommandButton btnSave;
@@ -19,6 +22,9 @@ public class SabEstadoLibroVista  {
     private List<SabEstadoLibro> sabEstadoLibro;
 
     public SabEstadoLibroVista() {
+
+    	mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+
     	txtDescripcion = new HtmlInputText();
     	btnSave = new HtmlCommandButton();
     	btnModify = new HtmlCommandButton();
@@ -34,7 +40,6 @@ public class SabEstadoLibroVista  {
         btnDelete.setDisabled(true);
         btnModify.setDisabled(true);
         btnClear.setDisabled(false);
-
         return "";
     }
 
@@ -43,10 +48,10 @@ public class SabEstadoLibroVista  {
         try {
             DelegadoNegocioVista.saveSabEstadoLibro(FacesUtils.checkString(
                     txtDescripcion));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("estadoLibro.guardado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("estadoLibro.guardado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -55,10 +60,10 @@ public class SabEstadoLibroVista  {
     public String action_delete() {
         try {
             DelegadoNegocioVista.deleteSabEstadoLibro(idEstado);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("estadoLibro.eliminado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("estadoLibro.eliminado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -66,45 +71,42 @@ public class SabEstadoLibroVista  {
 
     public String  action_commandLink(){
     	try{
-   		SabEstadoLibro sabEstadoLibroo = DelegadoNegocioVista.getSabEstadoLibro(idEstado);
-   		if(sabEstadoLibroo.getDescripcion() != null){
-   			txtDescripcion.setValue(sabEstadoLibroo.getDescripcion());
-   			btnModify.setDisabled(false);
-   	        btnSave.setDisabled(true);
-   	        btnDelete.setDisabled(false);
-   	        btnModify.setDisabled(false);
-   	        btnClear.setDisabled(false);
-   			
+    		SabEstadoLibro sabEstadoLibroo = DelegadoNegocioVista.getSabEstadoLibro(idEstado);
+	   		if(sabEstadoLibroo.getDescripcion() != null){
+	   			txtDescripcion.setValue(sabEstadoLibroo.getDescripcion());
+	   			btnModify.setDisabled(false);
+	   	        btnSave.setDisabled(true);
+	   	        btnDelete.setDisabled(false);
+	   	        btnModify.setDisabled(false);
+	   	        btnClear.setDisabled(false);
     		}else{
-    			throw new Exception("NO SE ENCONTRO EL ESTADO DEL LIBRO");
+    			throw new Exception(FacesUtils.getMensaje("error.estadoLibro.no.encontrado"));
     		}
     	}catch (Exception e){
-    		FacesUtils.addErrorMessage(e.getMessage());	
-    	}return "";
+    		mensaje.addErrorMessage(e.getMessage());	
+    	}
+    	return "";
  	}
     public String action_modify() {
         try {
             DelegadoNegocioVista.updateSabEstadoLibro(FacesUtils.checkString(
                     txtDescripcion), idEstado);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("estadoLibro.modificado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("estadoLibro.modificado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
-
         return "";
     }
 
      public List<SabEstadoLibro> getSabEstadoLibro() {
-            try {
-                sabEstadoLibro = DelegadoNegocioVista.getSabEstadoLibro();
-            } catch (Exception e) {
-                FacesUtils.addErrorMessage(e.getMessage());
-            }
-
+        try {
+            sabEstadoLibro = DelegadoNegocioVista.getSabEstadoLibro();
+        } catch (Exception e) {
+        	mensaje.addErrorMessage(e.getMessage());
+        }
         return sabEstadoLibro;
     }
-
 
     public void setSabEstadoLibro(List<SabEstadoLibro> sabEstadoLibro) {
         this.sabEstadoLibro = sabEstadoLibro;

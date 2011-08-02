@@ -180,7 +180,7 @@ public class SabLibroDAO {
         log.debug("finding all SabLibro instances");
 
         try {
-            String queryString = "from SabLibro";
+            String queryString = "from SabLibro order by idLibro";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

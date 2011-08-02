@@ -153,7 +153,7 @@ public class SabAutorDAO {
         log.debug("finding all SabAutor instances");
 
         try {
-            String queryString = "from SabAutor";
+            String queryString = "from SabAutor order by idAutor";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

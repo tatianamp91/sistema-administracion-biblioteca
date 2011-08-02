@@ -168,7 +168,7 @@ public class SabEstadoLibroDAO {
         log.debug("finding all SabEstadoLibro instances");
 
         try {
-            String queryString = "from SabEstadoLibro";
+            String queryString = "from SabEstadoLibro order by idEstado";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

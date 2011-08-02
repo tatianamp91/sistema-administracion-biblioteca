@@ -13,6 +13,9 @@ import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabVolumenVista {
+	
+	private SabMensajesVista mensaje;
+	
     private HtmlInputText txtDescripcion;
     private Long idEstado;
     private Long idVolumen;
@@ -24,6 +27,9 @@ public class SabVolumenVista {
     private List<SelectItem> listEstado;
 
 	public SabVolumenVista() {
+		
+    	mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+		
     	txtDescripcion = new HtmlInputText();
     	btnSave = new HtmlCommandButton();
     	btnModify = new HtmlCommandButton();
@@ -53,10 +59,10 @@ public class SabVolumenVista {
         try {
             DelegadoNegocioVista.saveSabVolumen(FacesUtils.checkString(
                     txtDescripcion), idEstado);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("volumen.guardado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("volumen.guardado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -65,10 +71,10 @@ public class SabVolumenVista {
     public String action_delete() {
         try {
             DelegadoNegocioVista.deleteSabVolumen(idVolumen);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("volumen.eliminado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("volumen.eliminado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -76,21 +82,20 @@ public class SabVolumenVista {
 
     public String  action_commandLink(){
     	try{
-   		SabVolumen sabVolumenn = DelegadoNegocioVista.getSabVolumen(idVolumen);
-   		if(sabVolumenn.getDescripcion() != null && sabVolumenn.getEstado() != 0L){
-   			txtDescripcion.setValue(sabVolumenn.getDescripcion());
-   			idEstado = sabVolumenn.getEstado();
-   			btnModify.setDisabled(false);
-   	        btnSave.setDisabled(true);
-   	        btnDelete.setDisabled(false);
-   	        btnModify.setDisabled(false);
-   	        btnClear.setDisabled(false);
-   			
+	   		SabVolumen sabVolumenn = DelegadoNegocioVista.getSabVolumen(idVolumen);
+	   		if(sabVolumenn.getDescripcion() != null && sabVolumenn.getEstado() != 0L){
+	   			txtDescripcion.setValue(sabVolumenn.getDescripcion());
+	   			idEstado = sabVolumenn.getEstado();
+	   			btnModify.setDisabled(false);
+	   	        btnSave.setDisabled(true);
+	   	        btnDelete.setDisabled(false);
+	   	        btnModify.setDisabled(false);
+	   	        btnClear.setDisabled(false);
     		}else{
-    			throw new Exception("NO SE ENCONTRO EL VOLUMEN");
+    			throw new Exception(FacesUtils.getMensaje("error.volumen.no.encontrado"));
     		}
     	}catch (Exception e){
-    		FacesUtils.addErrorMessage(e.getMessage());	
+    		mensaje.addErrorMessage(e.getMessage());	
     	}return "";
  	}
     
@@ -98,10 +103,10 @@ public class SabVolumenVista {
         try {
             DelegadoNegocioVista.updateSabVolumen(FacesUtils.checkString(
                     txtDescripcion), idEstado, idVolumen);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("volumen.modificado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("volumen.modificado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -151,7 +156,7 @@ public class SabVolumenVista {
 		 try {
              sabVolumen = DelegadoNegocioVista.getSabVolumen();
          } catch (Exception e) {
-             FacesUtils.addErrorMessage(e.getMessage());
+        	 mensaje.addErrorMessage(e.getMessage());
          }
 		return sabVolumen;
 	}

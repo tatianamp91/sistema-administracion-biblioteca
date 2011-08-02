@@ -23,46 +23,63 @@
 							</td>
 							<td width="80%">
 							<fieldset style="height: 700px; width: 98%;">
+							<div align="right">
+								<ice:outputText value="#{lbl.camposObligatorios}" styleClass="texto5"></ice:outputText>
+							</div>
 							<div align="center">
+							<br/>
 							<ice:outputText value="#{lbl.volumenT}" styleClass="titulo"></ice:outputText>
 							<br/>
-							<ice:panelGrid columns="2">
-								<ice:outputText value="#{lbl.descripcion}"></ice:outputText>
-								<ice:inputText binding="#{sabVolumenVista.txtDescripcion}"></ice:inputText>
-								<ice:outputText value="#{lbl.estado}"></ice:outputText>
-								<ice:selectOneMenu value="#{sabVolumenVista.idEstado}" >
-								<f:selectItems value="#{sabVolumenVista.listEstado}"/>
-								</ice:selectOneMenu>
-							</ice:panelGrid></div>
-							<div align="center"><ice:panelGrid columns="4">
-								<ice:commandButton styleClass="button" value="#{lbl.guardar}"
-									action="#{sabVolumenVista.action_save}"
-									binding="#{sabVolumenVista.btnSave}">
-								</ice:commandButton>
-								<ice:commandButton styleClass="button" value="#{lbl.modificar}"
-									action="#{sabVolumenVista.action_modify}"
-									binding="#{sabVolumenVista.btnModify }">
-								</ice:commandButton>
-								<ice:commandButton styleClass="button" value="#{lbl.borrar}"
-									action="#{sabVolumenVista.action_delete}"
-									binding="#{sabVolumenVista.btnDelete}"
-									onclick="if(!confirm('#{lbl.eliminar_volumen}')){ return; };">
-								</ice:commandButton>
-								<ice:commandButton styleClass="button" value="#{lbl.limpiar}"
-									action="#{sabVolumenVista.action_clear}"
-									binding="#{sabVolumenVista.btnClear}">
-								</ice:commandButton>
-							</ice:panelGrid> 
-							<ice:dataTable value="#{sabVolumenVista.sabVolumen}" var="sabVolumen">
+							
+							<fieldset style="width: 50%;">
+								<legend>
+									<ice:outputText value="#{lbl.infoBasica}" styleClass="texto4"></ice:outputText>
+								</legend>
+								<div align="center">
+								<ice:panelGrid columns="2">
+									<ice:outputText value="#{lbl.descripcion}" styleClass="requerido"></ice:outputText>
+									<ice:inputText binding="#{sabVolumenVista.txtDescripcion}"></ice:inputText>
+									<ice:outputText value="#{lbl.estado}" styleClass="requerido"></ice:outputText>
+									<ice:selectOneMenu value="#{sabVolumenVista.idEstado}" >
+									<f:selectItems value="#{sabVolumenVista.listEstado}"/>
+									</ice:selectOneMenu>
+								</ice:panelGrid></div>
+							</fieldset>
+							
+							<fieldset style="width: 50%;">
+								<div align="center"><ice:panelGrid columns="4">
+									<ice:commandButton styleClass="button" value="#{lbl.guardar}"
+										action="#{sabVolumenVista.action_save}"
+										binding="#{sabVolumenVista.btnSave}">
+									</ice:commandButton>
+									<ice:commandButton styleClass="button" value="#{lbl.modificar}"
+										action="#{sabVolumenVista.action_modify}"
+										binding="#{sabVolumenVista.btnModify }">
+									</ice:commandButton>
+									<ice:commandButton styleClass="button" value="#{lbl.borrar}"
+										action="#{sabVolumenVista.action_delete}"
+										binding="#{sabVolumenVista.btnDelete}"
+										onclick="if(!confirm('#{lbl.eliminar_volumen}')){ return; };">
+									</ice:commandButton>
+									<ice:commandButton styleClass="button" value="#{lbl.limpiar}"
+										action="#{sabVolumenVista.action_clear}"
+										binding="#{sabVolumenVista.btnClear}">
+									</ice:commandButton>
+								</ice:panelGrid> </div>
+							</fieldset>
+							
+							<ice:dataTable id="tablaVolumen" value="#{sabVolumenVista.sabVolumen}" var="sabVolumen" width="51%" rows="7">
 								<ice:column>
 									<f:facet name="header">
 										<ice:outputText value="#{lbl.id}"></ice:outputText>
 									</f:facet>
-									<ice:commandLink value="#{sabVolumen.idVolumen}"
-										action="#{sabVolumenVista.action_commandLink}">
-										<f:setPropertyActionListener value="#{sabVolumen.idVolumen}"
-											target="#{sabVolumenVista.idVolumen}" />
-									</ice:commandLink>
+									<div align="center">
+										<ice:commandLink value="#{sabVolumen.idVolumen}"
+											action="#{sabVolumenVista.action_commandLink}" styleClass="enlace2">
+											<f:setPropertyActionListener value="#{sabVolumen.idVolumen}"
+												target="#{sabVolumenVista.idVolumen}" />
+										</ice:commandLink>
+									</div>
 								</ice:column>
 								<ice:column>
 									<f:facet name="header">
@@ -74,9 +91,47 @@
 									<f:facet name="header">
 										<ice:outputText value="#{lbl.estado}"></ice:outputText>
 									</f:facet>
+									<div align="center">
 									<ice:outputText value="#{sabVolumen.estado eq lbl.estadoActivo ? 'Activo' : 'Inactivo'}"></ice:outputText>
+									</div>
 								</ice:column>
-							</ice:dataTable></div>
+							</ice:dataTable>
+							
+							<ice:dataPaginator for="tablaVolumen" fastStep="3" 
+								paginator="true" renderFacetsIfSinglePage="false" paginatorMaxPages="7">
+									<f:facet name="first">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="last">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="previous">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="fastforward">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="fastrewind">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
+											style="border:none;" />
+									</f:facet>
+								</ice:dataPaginator>
+							
+							</div>
 							</fieldset>
 							</td>
 						</tr>

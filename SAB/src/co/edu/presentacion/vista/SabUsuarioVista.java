@@ -14,6 +14,9 @@ import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabUsuarioVista{
+	
+	private SabMensajesVista mensaje;
+	
     private HtmlInputText txtCodigo;
     private HtmlInputText txtEmail;
     private HtmlInputText txtNombreCompleto;
@@ -30,25 +33,27 @@ public class SabUsuarioVista{
 
     public SabUsuarioVista() {
     	try {
-    	txtCodigo = new HtmlInputText();
-    	txtEmail = new HtmlInputText();
-    	txtNombreCompleto = new HtmlInputText();
-    	txtNumIdentificacion = new HtmlInputText();
-    	btnSave = new HtmlCommandButton();
-    	btnDelete = new HtmlCommandButton();
-    	btnModify = new HtmlCommandButton();
-    	btnClear = new HtmlCommandButton();
-    	
-       	listRol = new ArrayList<SelectItem>();
-		List<SabRol> roles = DelegadoNegocioVista.getSabRol();
-       	listRol.add(new SelectItem(0L, "Seleccione"));
-       	for (SabRol sabRol : roles) {
-			listRol.add(new SelectItem(sabRol.getIdRol(), sabRol.getDescripcion()));
-		}
-     	action_clear();
+    		
+    		mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+	    	
+    		txtCodigo = new HtmlInputText();
+	    	txtEmail = new HtmlInputText();
+	    	txtNombreCompleto = new HtmlInputText();
+	    	txtNumIdentificacion = new HtmlInputText();
+	    	btnSave = new HtmlCommandButton();
+	    	btnDelete = new HtmlCommandButton();
+	    	btnModify = new HtmlCommandButton();
+	    	btnClear = new HtmlCommandButton();
+	    	
+	       	listRol = new ArrayList<SelectItem>();
+			List<SabRol> roles = DelegadoNegocioVista.getSabRol();
+	       	listRol.add(new SelectItem(0L, "Seleccione"));
+	       	for (SabRol sabRol : roles) {
+				listRol.add(new SelectItem(sabRol.getIdRol(), sabRol.getDescripcion()));
+			}
+	     	action_clear();
 		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
-			e.printStackTrace();
+			mensaje.addErrorMessage(e.getMessage());
 		}
     }
 
@@ -73,10 +78,10 @@ public class SabUsuarioVista{
                 FacesUtils.checkString(txtEmail),
                 FacesUtils.checkString(txtNombreCompleto),
                 FacesUtils.checkLong(txtNumIdentificacion), (idRol));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("usuario.guardado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("usuario.guardado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -85,10 +90,10 @@ public class SabUsuarioVista{
     public String action_delete() {
         try {
             DelegadoNegocioVista.deleteSabUsuario(FacesUtils.checkLong(idUsuario));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("usuario.eliminado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("usuario.eliminado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -96,24 +101,23 @@ public class SabUsuarioVista{
     
     public String  action_commandLink(){
     	try{
-   		SabUsuario sabUsuarioo = DelegadoNegocioVista.getSabUsuario(idUsuario);
-   		if(sabUsuarioo.getIdUsuario() != null){
-   			txtCodigo.setValue(sabUsuarioo.getCodigo());
-   		    txtEmail.setValue(sabUsuarioo.getEmail());
-   		    txtNombreCompleto.setValue(sabUsuarioo.getNombreCompleto());
-   		    txtNumIdentificacion.setValue(sabUsuarioo.getNumIdentificacion());
- 		    idRol = sabUsuarioo.getSabRol().getIdRol();
-   			btnModify.setDisabled(false);
-   	        btnSave.setDisabled(true);
-   	        btnDelete.setDisabled(false);
-   	        btnModify.setDisabled(false);
-   	        btnClear.setDisabled(false);
-   			
+	   		SabUsuario sabUsuarioo = DelegadoNegocioVista.getSabUsuario(idUsuario);
+	   		if(sabUsuarioo.getIdUsuario() != null){
+	   			txtCodigo.setValue(sabUsuarioo.getCodigo());
+	   		    txtEmail.setValue(sabUsuarioo.getEmail());
+	   		    txtNombreCompleto.setValue(sabUsuarioo.getNombreCompleto());
+	   		    txtNumIdentificacion.setValue(sabUsuarioo.getNumIdentificacion());
+	 		    idRol = sabUsuarioo.getSabRol().getIdRol();
+	   			btnModify.setDisabled(false);
+	   	        btnSave.setDisabled(true);
+	   	        btnDelete.setDisabled(false);
+	   	        btnModify.setDisabled(false);
+	   	        btnClear.setDisabled(false);
     		}else{
-    			throw new Exception("NO SE ENCONTRO EL USUARIO");
+    			throw new Exception(FacesUtils.getMensaje("error.usuario.no.encontrado"));
     		}
     	}catch (Exception e){
-    		FacesUtils.addErrorMessage(e.getMessage());	
+    		mensaje.addErrorMessage(e.getMessage());	
     	}return "";
  	}
     
@@ -123,15 +127,13 @@ public class SabUsuarioVista{
                     txtCodigo), FacesUtils.checkString(txtEmail), (idUsuario),
                 FacesUtils.checkString(txtNombreCompleto),
                 FacesUtils.checkLong(txtNumIdentificacion), (idRol));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("usuario.modificado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("usuario.modificado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
-
         return "";
     }
-
 
     public HtmlInputText getTxtCodigo() {
         return txtCodigo;
@@ -165,7 +167,6 @@ public class SabUsuarioVista{
         this.txtNumIdentificacion = txtNumIdentificacion;
     }
 
- 
     public Long getIdUsuario() {
 		return idUsuario;
 	}
@@ -210,7 +211,7 @@ public class SabUsuarioVista{
         try {
             sabUsuario = DelegadoNegocioVista.getSabUsuario();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 		return sabUsuario;
 	}
