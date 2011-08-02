@@ -18,11 +18,11 @@
 					<table cellpadding="0" cellspacing="0" style="width: 81%;">
 						<tr>
 							<td width="20%">
-							<fieldset style="height: 700px;"><ui:include
+							<fieldset style="height: 750px;"><ui:include
 								src="/WEB-INF/facelets/menu.jspx" /></fieldset>
 							</td>
 							<td width="80%">
-							<fieldset style="height: 700px; width: 98%;">
+							<fieldset style="height: 750px; width: 98%;">
 							<div align="right">
 								<ice:outputText value="#{lbl.camposObligatorios}" styleClass="texto5"></ice:outputText>
 							</div>
