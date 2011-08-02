@@ -23,6 +23,9 @@
 							</td>
 							<td width="80%">
 							<fieldset style="height: 700px; width: 98%;">
+							<div align="right">
+								<ice:outputText value="#{lbl.camposObligatorios}" styleClass="texto5"></ice:outputText>
+							</div>
 							<div align="center">
 							<br/>
 							<ice:outputText value="#{lbl.areaT}" styleClass="titulo"></ice:outputText>
@@ -34,9 +37,9 @@
 								</legend>
 								<div align="center">
 									<ice:panelGrid columns="2">
-										<ice:outputText value="#{lbl.nombre}"></ice:outputText>
+										<ice:outputText value="#{lbl.nombre}" styleClass="requerido"></ice:outputText>
 										<ice:inputText binding="#{sabAreaVista.txtNombre}"></ice:inputText>
-										<ice:outputText value="#{lbl.estado}"></ice:outputText>
+										<ice:outputText value="#{lbl.estado}" styleClass="requerido"></ice:outputText>
 										<ice:selectOneMenu value="#{sabAreaVista.idEstado}">
 											<f:selectItems value="#{sabAreaVista.listEstado}" />
 										</ice:selectOneMenu>

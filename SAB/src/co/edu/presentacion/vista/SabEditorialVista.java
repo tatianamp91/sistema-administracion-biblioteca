@@ -13,6 +13,9 @@ import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabEditorialVista {
+	
+	private SabMensajesVista mensaje;
+	
     private HtmlInputText txtEstado;
     private HtmlInputText txtNombre;
     private Long idEstado;
@@ -26,6 +29,9 @@ public class SabEditorialVista {
     private List<SabEditorial> sabEditorial;
 
     public SabEditorialVista() {
+    	
+    	mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+    	
     	txtNombre = new HtmlInputText();
     	btnSave = new HtmlCommandButton();
     	btnDelete = new HtmlCommandButton();
@@ -55,10 +61,10 @@ public class SabEditorialVista {
         try {
 	        DelegadoNegocioVista.saveSabEditorial((idEstado),
 	        FacesUtils.checkString(txtNombre));
-	        FacesUtils.addInfoMessage(FacesUtils.getMensaje("editorial.guardada"));	
+	        mensaje.addInfoMessage(FacesUtils.getMensaje("editorial.guardada"));	
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -67,10 +73,10 @@ public class SabEditorialVista {
     public String action_delete() {
         try {
             DelegadoNegocioVista.deleteSabEditorial(idEditorial);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("editorial.eliminada"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("editorial.eliminada"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -78,21 +84,20 @@ public class SabEditorialVista {
     
     public String  action_commandLink(){
     	try{
-   		SabEditorial sabEditoriall = DelegadoNegocioVista.getSabEditorial(idEditorial);
-   		if(sabEditoriall.getNombre() != null && sabEditoriall.getEstado() != 0L){
-   			txtNombre.setValue(sabEditoriall.getNombre());
-   			idEstado = sabEditoriall.getEstado();
-   			btnModify.setDisabled(false);
-   	        btnSave.setDisabled(true);
-   	        btnDelete.setDisabled(false);
-   	        btnModify.setDisabled(false);
-   	        btnClear.setDisabled(false);
-   			
+    		SabEditorial sabEditoriall = DelegadoNegocioVista.getSabEditorial(idEditorial);
+	   		if(sabEditoriall.getNombre() != null && sabEditoriall.getEstado() != 0L){
+	   			txtNombre.setValue(sabEditoriall.getNombre());
+	   			idEstado = sabEditoriall.getEstado();
+	   			btnModify.setDisabled(false);
+	   	        btnSave.setDisabled(true);
+	   	        btnDelete.setDisabled(false);
+	   	        btnModify.setDisabled(false);
+	   	        btnClear.setDisabled(false);
     		}else{
-    			throw new Exception("NO SE ENCONTRO LA EDITORIAL");
+    			throw new Exception(FacesUtils.getMensaje("error.editorial.no.encontrado"));
     		}
     	}catch (Exception e){
-    		FacesUtils.addErrorMessage(e.getMessage());	
+    		mensaje.addErrorMessage(e.getMessage());	
     	}return "";
  	}
     
@@ -100,11 +105,10 @@ public class SabEditorialVista {
         try {
             DelegadoNegocioVista.updateSabEditorial((idEstado), (idEditorial),
             FacesUtils.checkString(txtNombre));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("editorial.modificada"));
-
+            mensaje.addInfoMessage(FacesUtils.getMensaje("editorial.modificada"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -114,7 +118,7 @@ public class SabEditorialVista {
         try {
             sabEditorial = DelegadoNegocioVista.getSabEditorial();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
         return sabEditorial;
     }

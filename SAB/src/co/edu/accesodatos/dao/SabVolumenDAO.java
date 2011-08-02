@@ -174,7 +174,7 @@ public class SabVolumenDAO {
         log.debug("finding all SabVolumen instances");
 
         try {
-            String queryString = "from SabVolumen";
+            String queryString = "from SabVolumen order by idVolumen";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

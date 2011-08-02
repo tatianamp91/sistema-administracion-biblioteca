@@ -162,7 +162,7 @@ public class SabEditorialDAO {
         log.debug("finding all SabEditorial instances");
 
         try {
-            String queryString = "from SabEditorial";
+            String queryString = "from SabEditorial order by idEditorial";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

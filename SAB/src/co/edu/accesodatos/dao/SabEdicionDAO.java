@@ -161,7 +161,7 @@ public class SabEdicionDAO {
         log.debug("finding all SabEdicion instances");
 
         try {
-            String queryString = "from SabEdicion";
+            String queryString = "from SabEdicion order by idEdicion";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();

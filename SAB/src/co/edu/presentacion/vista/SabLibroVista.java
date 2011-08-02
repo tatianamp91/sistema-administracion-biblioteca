@@ -19,6 +19,9 @@ import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabLibroVista  {
+	
+	private SabMensajesVista mensaje;
+	
 	private Long idLibro;
 	private HtmlInputText txtTitulo;
 	private Long idEdicion;
@@ -47,6 +50,9 @@ public class SabLibroVista  {
 
 	public SabLibroVista() {
 		try {
+			
+	    	mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+
 	        txtTitulo = new HtmlInputText();
 	        txtCantidad = new HtmlInputText();
 	        btnSave = new HtmlCommandButton();
@@ -86,8 +92,7 @@ public class SabLibroVista  {
 	       	}
 	        action_clear();
 		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
-			e.printStackTrace();
+			mensaje.addErrorMessage(e.getMessage());
 		}
     }
 
@@ -144,24 +149,22 @@ public class SabLibroVista  {
 	    		listAutor.add(autor);
 			}
     	} catch (Exception e) {
-    		FacesUtils.addErrorMessage(e.getMessage());
-    		e.printStackTrace();
+    		mensaje.addErrorMessage(e.getMessage());
     	}
     	return listAutor;
     }
     public String action_save() {
         try { 
-        	validaciones();
         	List<SabAutor> listAutor = action_convertir();
         	idEstadoLibro = 1L;
         	CantidadPrestados = 0L;
         	DelegadoNegocioVista.saveSabLibro(FacesUtils.checkLong(txtCantidad),
             (CantidadPrestados),FacesUtils.checkString(txtTitulo),
             (idArea),(idEdicion),(idEditorial),(idEstadoLibro),(idVolumen),(listAutor));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("libro.guardado"));
+        	mensaje.addInfoMessage(FacesUtils.getMensaje("libro.guardado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -170,79 +173,70 @@ public class SabLibroVista  {
     public String action_delete() {
         try {
             DelegadoNegocioVista.deleteSabLibro(FacesUtils.checkLong(idLibro));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("libro.eliminado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("libro.eliminado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
     }
     public String  action_commandLink(){
     	try{
-   		SabLibro sabLibroo = DelegadoNegocioVista.getSabLibro(idLibro);
-   		if(sabLibroo.getTitulo() != null){
-   			txtTitulo.setValue(sabLibroo.getTitulo());
-			idEstadoLibro = sabLibroo.getSabEstadoLibro().getIdEstado();
-			idEdicion = sabLibroo.getSabEdicion().getIdEdicion();	        
-   			idVolumen = sabLibroo.getSabVolumen().getIdVolumen();
- 			idEditorial = sabLibroo.getSabEditorial().getIdEditorial(); 
-   			idArea = sabLibroo.getSabArea().getIdArea();
-   			
-   			listAutores = new ArrayList<SelectItem>(listAutoresTotal);
-   	        listAutoresLibro = new ArrayList<SelectItem>();
-   			for (SabLibroAutor valor : sabLibroo.getSabLibroAutors()) {
-	    		SelectItem selectItem = extraer_autor(valor.getSabAutor().getIdAutor().toString());
-	    		listAutoresLibro.add(selectItem);
-	    		listAutores.remove(selectItem);
-			}
-   			
-   			txtCantidad.setValue(sabLibroo.getCantidad());		
-   		    btnModify.setDisabled(false);
-   	        btnSave.setDisabled(true);
-   	        btnDelete.setDisabled(false);
-   	        btnModify.setDisabled(false);
-   	        btnClear.setDisabled(false);
-   			
+	   		SabLibro sabLibroo = DelegadoNegocioVista.getSabLibro(idLibro);
+	   		if(sabLibroo.getTitulo() != null){
+	   			txtTitulo.setValue(sabLibroo.getTitulo());
+				idEstadoLibro = sabLibroo.getSabEstadoLibro().getIdEstado();
+				idEdicion = sabLibroo.getSabEdicion().getIdEdicion();	        
+	   			idVolumen = sabLibroo.getSabVolumen().getIdVolumen();
+	 			idEditorial = sabLibroo.getSabEditorial().getIdEditorial(); 
+	   			idArea = sabLibroo.getSabArea().getIdArea();
+	   			
+	   			listAutores = new ArrayList<SelectItem>(listAutoresTotal);
+	   	        listAutoresLibro = new ArrayList<SelectItem>();
+	   			for (SabLibroAutor valor : sabLibroo.getSabLibroAutors()) {
+		    		SelectItem selectItem = extraer_autor(valor.getSabAutor().getIdAutor().toString());
+		    		listAutoresLibro.add(selectItem);
+		    		listAutores.remove(selectItem);
+				}
+	   			
+	   			txtCantidad.setValue(sabLibroo.getCantidad());		
+	   		    btnModify.setDisabled(false);
+	   	        btnSave.setDisabled(true);
+	   	        btnDelete.setDisabled(false);
+	   	        btnModify.setDisabled(false);
+	   	        btnClear.setDisabled(false);
     		}else{
-    			throw new Exception("NO SE ENCONTRO EL LIBRO");
+    			throw new Exception(FacesUtils.getMensaje("error.libro.no.encontrado"));
     		}
     	}catch (Exception e){
-    		FacesUtils.addErrorMessage(e.getMessage());	
+    		mensaje.addErrorMessage(e.getMessage());	
     	}return "";
  	}
     
-    public void validaciones() throws Exception{
-    	if(listAutoresLibro == null || listAutoresLibro.isEmpty()){
-    		throw new Exception(FacesUtils.getMensaje("libro.no.autores"));
-    	}
-    }
-
     public String action_modify() {
         try {
-        	validaciones();
         	List<SabAutor> listAutor = action_convertir();
             DelegadoNegocioVista.updateSabLibro(FacesUtils.checkLong(txtCantidad), 
             (idLibro), FacesUtils.checkString(txtTitulo), (idArea),
             (idEdicion), (idEditorial), (idVolumen), (listAutor));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("libro.modificado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("libro.modificado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
-
         return "";
     }
-
     
     public void setSabLibro(List<SabLibro> sabLibro) {
         this.sabLibro = sabLibro;
     }
+    
 	public List<SabLibro> getSabLibro() {
         try {
             sabLibro = DelegadoNegocioVista.getSabLibro();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 		return sabLibro;
 	}

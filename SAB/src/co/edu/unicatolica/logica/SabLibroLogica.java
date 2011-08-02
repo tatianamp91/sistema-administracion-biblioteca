@@ -37,29 +37,35 @@ public class SabLibroLogica {
         SabLibro entity = null;
 
         try {
-            if (cantidad == null) {
-            	throw new Exception(FacesUtils.getMensaje("error.cantidad"));
-            }
+        	if (titulo == null) {
+        		throw new Exception(FacesUtils.getMensaje("error.titulo"));
+        	}
+        	
+        	if ((titulo != null) && (Utilities.checkWordAndCheckWithlength(titulo, 50) == false)) {
+        		throw new Exception(FacesUtils.getMensaje("error.titulo.no.valido"));
+        	}
+        	if (idEdicion_SabEdicion == 0L) {
+        		throw new Exception(FacesUtils.getMensaje("error.idEdicion"));
+        	}
+        	
+        	if ((idEdicion_SabEdicion != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idEdicion_SabEdicion, 8, 0) == false)) {
+        		throw new Exception(FacesUtils.getMensaje("error.idEdicion.no.valido"));
+        	}
+        	if (idVolumen_SabVolumen == 0L) {
+        		throw new Exception(FacesUtils.getMensaje("error.idVolumen"));
+        	}
+        	
+        	if ((idVolumen_SabVolumen != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idVolumen_SabVolumen, 8, 0) == false)) {
+        		throw new Exception(FacesUtils.getMensaje("error.idVolumen.no.valido"));
+        	}
 
-            if ((cantidad != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +cantidad, 3, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.cantidad.no.valido"));
-            }
-
-            if (cantidadPrestados == null) {
-            	throw new Exception(FacesUtils.getMensaje("error.cantidadPrestados"));
-            }
-
-            if ((cantidadPrestados != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + cantidadPrestados, 3, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.cantidadPrestados.no.valido"));
-            }
-
-            if (titulo == null) {
-            	throw new Exception(FacesUtils.getMensaje("error.titulo"));
-            }
-
-            if ((titulo != null) && (Utilities.checkWordAndCheckWithlength(titulo, 50) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.titulo.no.valido"));
-            }
+        	if (idEditorial_SabEditorial == 0L) {
+        		throw new Exception(FacesUtils.getMensaje("error.idEditorial"));
+        	}
+        	
+        	if ((idEditorial_SabEditorial != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idEditorial_SabEditorial, 8, 0) == false)) {
+        		throw new Exception(FacesUtils.getMensaje("error.idEditorial.no.valido"));
+        	}
 
             if (idArea_SabArea == 0L) {
             	throw new Exception(FacesUtils.getMensaje("error.idArea"));
@@ -69,22 +75,21 @@ public class SabLibroLogica {
             	throw new Exception(FacesUtils.getMensaje("error.idArea.no.valido"));
             }
 
-            if (idEdicion_SabEdicion == 0L) {
-            	throw new Exception(FacesUtils.getMensaje("error.idEdicion"));
+            if (cantidad == null) {
+            	throw new Exception(FacesUtils.getMensaje("error.cantidad"));
             }
-
-            if ((idEdicion_SabEdicion != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idEdicion_SabEdicion, 8, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.idEdicion.no.valido"));
+            
+            if ((cantidad != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +cantidad, 3, 0) == false)) {
+            	throw new Exception(FacesUtils.getMensaje("error.cantidad.no.valido"));
             }
-
-            if (idEditorial_SabEditorial == 0L) {
-            	throw new Exception(FacesUtils.getMensaje("error.idEditorial"));
+            
+            if (cantidadPrestados == null) {
+            	throw new Exception(FacesUtils.getMensaje("error.cantidadPrestados"));
             }
-
-            if ((idEditorial_SabEditorial != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idEditorial_SabEditorial, 8, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.idEditorial.no.valido"));
+            
+            if ((cantidadPrestados != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + cantidadPrestados, 3, 0) == false)) {
+            	throw new Exception(FacesUtils.getMensaje("error.cantidadPrestados.no.valido"));
             }
-
             if (idEstado_SabEstadoLibro == null) {
             	throw new Exception(FacesUtils.getMensaje("error.idEstadoLibro"));
             }
@@ -93,12 +98,9 @@ public class SabLibroLogica {
             	throw new Exception(FacesUtils.getMensaje("error.idEstadoLibro.no.valido"));
             }
 
-            if (idVolumen_SabVolumen == 0L) {
-            	throw new Exception(FacesUtils.getMensaje("error.idVolumen"));
-            }
-
-            if ((idVolumen_SabVolumen != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idVolumen_SabVolumen, 8, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.idVolumen.no.valido"));
+            
+            if(listAutores == null || listAutores.isEmpty()){
+        		throw new Exception(FacesUtils.getMensaje("libro.no.autores"));
             }
             
             SabAreaLogica logicSabArea = new SabAreaLogica();
@@ -198,13 +200,6 @@ public class SabLibroLogica {
         SabLibro entity = null;
 
         try {
-        	if (cantidad == null) {
-            	throw new Exception(FacesUtils.getMensaje("error.cantidad"));
-            }
-
-            if ((cantidad != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +cantidad, 3, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.cantidad.no.valido"));
-            }
 
             if (idLibro == null) {
             	throw new Exception(FacesUtils.getMensaje("error.idLibro"));
@@ -222,13 +217,6 @@ public class SabLibroLogica {
             	throw new Exception(FacesUtils.getMensaje("error.titulo.no.valido"));
             }
 
-            if (idArea_SabArea == 0L) {
-            	throw new Exception(FacesUtils.getMensaje("error.idArea"));
-            }
-
-            if ((idArea_SabArea != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +idArea_SabArea, 8, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.idArea.no.valido"));
-            }
 
             if (idEdicion_SabEdicion == 0L) {
             	throw new Exception(FacesUtils.getMensaje("error.idEdicion"));
@@ -238,6 +226,13 @@ public class SabLibroLogica {
             	throw new Exception(FacesUtils.getMensaje("error.idEdicion.no.valido"));
             }
 
+            if (idVolumen_SabVolumen == 0L) {
+            	throw new Exception(FacesUtils.getMensaje("error.idVolumen"));
+            }
+            
+            if ((idVolumen_SabVolumen != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idVolumen_SabVolumen, 8, 0) == false)) {
+            	throw new Exception(FacesUtils.getMensaje("error.idVolumen.no.valido"));
+            }
             if (idEditorial_SabEditorial == 0L) {
             	throw new Exception(FacesUtils.getMensaje("error.idEditorial"));
             }
@@ -246,12 +241,23 @@ public class SabLibroLogica {
             	throw new Exception(FacesUtils.getMensaje("error.idEditorial.no.valido"));
             }
 
-            if (idVolumen_SabVolumen == 0L) {
-            	throw new Exception(FacesUtils.getMensaje("error.idVolumen"));
+            if (idArea_SabArea == 0L) {
+            	throw new Exception(FacesUtils.getMensaje("error.idArea"));
             }
-
-            if ((idVolumen_SabVolumen != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idVolumen_SabVolumen, 8, 0) == false)) {
-            	throw new Exception(FacesUtils.getMensaje("error.idVolumen.no.valido"));
+            
+            if ((idArea_SabArea != 0L) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +idArea_SabArea, 8, 0) == false)) {
+            	throw new Exception(FacesUtils.getMensaje("error.idArea.no.valido"));
+            }
+            if (cantidad == null) {
+            	throw new Exception(FacesUtils.getMensaje("error.cantidad"));
+            }
+            
+            if ((cantidad != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +cantidad, 3, 0) == false)) {
+            	throw new Exception(FacesUtils.getMensaje("error.cantidad.no.valido"));
+            }
+            
+            if(listAutor == null || listAutor.isEmpty()){
+        		throw new Exception(FacesUtils.getMensaje("libro.no.autores"));
             }
 
             SabAreaLogica logicSabArea1 = new SabAreaLogica();

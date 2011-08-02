@@ -13,6 +13,9 @@ import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabEdicionVista {
+
+	private SabMensajesVista mensaje;
+
 	private HtmlInputText txtDescripcion;
 	private Long idEstado;
 	private Long idEdicion;
@@ -25,18 +28,20 @@ public class SabEdicionVista {
 	private List<SabEdicion> sabEdicion;
 
 	public SabEdicionVista() {
-    	txtDescripcion = new HtmlInputText();
-    	btnSave = new HtmlCommandButton();
-    	btnModify = new HtmlCommandButton();
-    	btnDelete = new HtmlCommandButton();
-    	btnClear = new HtmlCommandButton();
-    	
-    	listEstado = new ArrayList<SelectItem>();
-    	listEstado.add(new SelectItem(0L, "Seleccione"));
-    	listEstado.add(new SelectItem(1L, "Activo"));
-    	listEstado.add(new SelectItem(2L, "Inactivo"));
-    	
-    	action_clear();
+		mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+
+		txtDescripcion = new HtmlInputText();
+		btnSave = new HtmlCommandButton();
+		btnModify = new HtmlCommandButton();
+		btnDelete = new HtmlCommandButton();
+		btnClear = new HtmlCommandButton();
+
+		listEstado = new ArrayList<SelectItem>();
+		listEstado.add(new SelectItem(0L, "Seleccione"));
+		listEstado.add(new SelectItem(1L, "Activo"));
+		listEstado.add(new SelectItem(2L, "Inactivo"));
+
+		action_clear();
 	}
 
 	public String action_clear() {
@@ -52,12 +57,12 @@ public class SabEdicionVista {
 
 	public String action_save() {
 		try {
-			DelegadoNegocioVista.saveSabEdicion(FacesUtils.checkString(txtDescripcion),
-			(idEstado));
-			FacesUtils.addInfoMessage(FacesUtils.getMensaje("edicion.guardada"));
+			DelegadoNegocioVista.saveSabEdicion(
+					FacesUtils.checkString(txtDescripcion), (idEstado));
+			mensaje.addInfoMessage(FacesUtils.getMensaje("edicion.guardada"));
 			action_clear();
 		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
+			mensaje.addErrorMessage(e.getMessage());
 		}
 
 		return "";
@@ -66,55 +71,55 @@ public class SabEdicionVista {
 	public String action_delete() {
 		try {
 			DelegadoNegocioVista.deleteSabEdicion(idEdicion);
-			FacesUtils.addInfoMessage(FacesUtils.getMensaje("edicion.eliminada"));
+			mensaje.addInfoMessage(FacesUtils.getMensaje("edicion.eliminada"));
 			action_clear();
 		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
+			mensaje.addErrorMessage(e.getMessage());
 		}
 
 		return "";
 	}
-	   public String  action_commandLink(){
-	    	try{
-	   		SabEdicion sabEdicionn = DelegadoNegocioVista.getSabEdicion(idEdicion);
-	   		if(sabEdicionn.getDescripcion() != null && sabEdicionn.getEstado() != 0L){
-	   			txtDescripcion.setValue(sabEdicionn.getDescripcion());
-	   			idEstado = sabEdicionn.getEstado();
-	   			btnModify.setDisabled(false);
-	   	        btnSave.setDisabled(true);
-	   	        btnDelete.setDisabled(false);
-	   	        btnModify.setDisabled(false);
-	   	        btnClear.setDisabled(false);
-	   			
-	    		}else{
-	    			throw new Exception("NO SE ENCONTRO EL EDICION");
-	    		}
-	    	}catch (Exception e){
-	    		FacesUtils.addErrorMessage(e.getMessage());	
-	    	}return "";
-	 	}
-	   
+
+	public String action_commandLink() {
+		try {
+			SabEdicion sabEdicionn = DelegadoNegocioVista.getSabEdicion(idEdicion);
+			if (sabEdicionn.getDescripcion() != null && sabEdicionn.getEstado() != 0L) {
+				txtDescripcion.setValue(sabEdicionn.getDescripcion());
+				idEstado = sabEdicionn.getEstado();
+				btnModify.setDisabled(false);
+				btnSave.setDisabled(true);
+				btnDelete.setDisabled(false);
+				btnModify.setDisabled(false);
+				btnClear.setDisabled(false);
+			} else {
+				throw new Exception(FacesUtils.getMensaje("error.edicion.no.encontrado"));
+			}
+		} catch (Exception e) {
+			mensaje.addErrorMessage(e.getMessage());
+		}
+		return "";
+	}
+
 	public String action_modify() {
 		try {
-			DelegadoNegocioVista.updateSabEdicion(FacesUtils.checkString(txtDescripcion),
-			(idEstado),(idEdicion));
-			FacesUtils.addInfoMessage(FacesUtils.getMensaje("edicion.modificada"));
+			DelegadoNegocioVista.updateSabEdicion(
+					FacesUtils.checkString(txtDescripcion), (idEstado),
+					(idEdicion));
+			mensaje.addInfoMessage(FacesUtils.getMensaje("edicion.modificada"));
 			action_clear();
 		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
+			mensaje.addErrorMessage(e.getMessage());
 		}
 
 		return "";
 	}
 
 	public List<SabEdicion> getSabEdicion() {
-
 		try {
 			sabEdicion = DelegadoNegocioVista.getSabEdicion();
 		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
+			mensaje.addErrorMessage(e.getMessage());
 		}
-
 		return sabEdicion;
 	}
 

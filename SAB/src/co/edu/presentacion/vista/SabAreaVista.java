@@ -113,14 +113,13 @@ public class SabAreaVista {
     }
 
     public List<SabArea> getSabArea() {
-            try {
-                sabArea = DelegadoNegocioVista.getSabArea();
-            } catch (Exception e) {
-            	mensaje.addErrorMessage(e.getMessage());
-            }
-            return sabArea;
+        try {
+            sabArea = DelegadoNegocioVista.getSabArea();
+        } catch (Exception e) {
+        	mensaje.addErrorMessage(e.getMessage());
         }
-
+        return sabArea;
+    }
 
     public void setSabArea(List<SabArea> sabArea) {
         this.sabArea = sabArea;
