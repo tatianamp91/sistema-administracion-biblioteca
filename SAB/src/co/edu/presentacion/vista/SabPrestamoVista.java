@@ -111,7 +111,7 @@ public class SabPrestamoVista  {
 	    	if(event.getNewValue()!=  null && !event.getNewValue().equals(event.getOldValue())){
 	    		if(!event.getNewValue().toString().isEmpty()){
 		    		Long codigoUsuario = Long.parseLong(event.getNewValue().toString());
-		    		SabUsuario sabUsuarioo = DelegadoNegocioVista.getSabUsuario(codigoUsuario);				
+		    		SabUsuario sabUsuarioo = DelegadoNegocioVista.consultarUsuarioPorCodigo(codigoUsuario);				
 		    		
 		    		if(sabUsuarioo!=null){
 		    			nombreUsuario = sabUsuarioo.getNombreCompleto(); 

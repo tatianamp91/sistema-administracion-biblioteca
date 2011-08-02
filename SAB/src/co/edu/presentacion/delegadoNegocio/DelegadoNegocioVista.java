@@ -63,30 +63,6 @@ public class DelegadoNegocioVista {
         return sabArea;
     }
 
-    public static List<SabArea> findByCriteriaInSabArea(Object[] variables,
-        Object[] variablesBetween, Object[] variablesBetweenDates)
-        throws Exception {
-        SabAreaLogica sabAreaLogic = new SabAreaLogica();
-
-        return sabAreaLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabArea> findPageSabArea(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabAreaLogica sabAreaLogic = new SabAreaLogica();
-
-        return sabAreaLogic.findPageSabArea(sortColumnName, sortAscending,
-            startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabArea() throws Exception {
-        SabAreaLogica sabAreaLogic = new SabAreaLogica();
-
-        return sabAreaLogic.findTotalNumberSabArea();
-    }
-
     public static List<SabAutor> getSabAutor() throws Exception {
         SabAutorLogica sabAutorLogic = new SabAutorLogica();
 
@@ -121,30 +97,6 @@ public class DelegadoNegocioVista {
         }
 
         return sabAutor;
-    }
-
-    public static List<SabAutor> findByCriteriaInSabAutor(Object[] variables,
-        Object[] variablesBetween, Object[] variablesBetweenDates)
-        throws Exception {
-        SabAutorLogica sabAutorLogic = new SabAutorLogica();
-
-        return sabAutorLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabAutor> findPageSabAutor(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabAutorLogica sabAutorLogic = new SabAutorLogica();
-
-        return sabAutorLogic.findPageSabAutor(sortColumnName, sortAscending,
-            startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabAutor() throws Exception {
-        SabAutorLogica sabAutorLogic = new SabAutorLogica();
-
-        return sabAutorLogic.findTotalNumberSabAutor();
     }
 
     public static List<SabEdicion> getSabEdicion() throws Exception {
@@ -183,30 +135,6 @@ public class DelegadoNegocioVista {
         }
 
         return sabEdicion;
-    }
-
-    public static List<SabEdicion> findByCriteriaInSabEdicion(
-        Object[] variables, Object[] variablesBetween,
-        Object[] variablesBetweenDates) throws Exception {
-        SabEdicionLogica sabEdicionLogic = new SabEdicionLogica();
-
-        return sabEdicionLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabEdicion> findPageSabEdicion(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabEdicionLogica sabEdicionLogic = new SabEdicionLogica();
-
-        return sabEdicionLogic.findPageSabEdicion(sortColumnName,
-            sortAscending, startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabEdicion() throws Exception {
-        SabEdicionLogica sabEdicionLogic = new SabEdicionLogica();
-
-        return sabEdicionLogic.findTotalNumberSabEdicion();
     }
 
     public static List<SabEditorial> getSabEditorial()
@@ -248,30 +176,6 @@ public class DelegadoNegocioVista {
         return sabEditorial;
     }
 
-    public static List<SabEditorial> findByCriteriaInSabEditorial(
-        Object[] variables, Object[] variablesBetween,
-        Object[] variablesBetweenDates) throws Exception {
-        SabEditorialLogica sabEditorialLogic = new SabEditorialLogica();
-
-        return sabEditorialLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabEditorial> findPageSabEditorial(
-        String sortColumnName, boolean sortAscending, int startRow,
-        int maxResults) throws Exception {
-        SabEditorialLogica sabEditorialLogic = new SabEditorialLogica();
-
-        return sabEditorialLogic.findPageSabEditorial(sortColumnName,
-            sortAscending, startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabEditorial() throws Exception {
-        SabEditorialLogica sabEditorialLogic = new SabEditorialLogica();
-
-        return sabEditorialLogic.findTotalNumberSabEditorial();
-    }
-
     public static List<SabEstadoLibro> getSabEstadoLibro()
         throws Exception {
         SabEstadoLibroLogica sabEstadoLibroLogic = new SabEstadoLibroLogica();
@@ -309,31 +213,6 @@ public class DelegadoNegocioVista {
         }
 
         return sabEstadoLibro;
-    }
-
-    public static List<SabEstadoLibro> findByCriteriaInSabEstadoLibro(
-        Object[] variables, Object[] variablesBetween,
-        Object[] variablesBetweenDates) throws Exception {
-        SabEstadoLibroLogica sabEstadoLibroLogic = new SabEstadoLibroLogica();
-
-        return sabEstadoLibroLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabEstadoLibro> findPageSabEstadoLibro(
-        String sortColumnName, boolean sortAscending, int startRow,
-        int maxResults) throws Exception {
-        SabEstadoLibroLogica sabEstadoLibroLogic = new SabEstadoLibroLogica();
-
-        return sabEstadoLibroLogic.findPageSabEstadoLibro(sortColumnName,
-            sortAscending, startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabEstadoLibro()
-        throws Exception {
-        SabEstadoLibroLogica sabEstadoLibroLogic = new SabEstadoLibroLogica();
-
-        return sabEstadoLibroLogic.findTotalNumberSabEstadoLibro();
     }
 
     public static List<SabLibro> getSabLibro() throws Exception {
@@ -383,30 +262,6 @@ public class DelegadoNegocioVista {
         return sabLibro;
     }
 
-    public static List<SabLibro> findByCriteriaInSabLibro(Object[] variables,
-        Object[] variablesBetween, Object[] variablesBetweenDates)
-        throws Exception {
-        SabLibroLogica sabLibroLogic = new SabLibroLogica();
-
-        return sabLibroLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabLibro> findPageSabLibro(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabLibroLogica sabLibroLogic = new SabLibroLogica();
-
-        return sabLibroLogic.findPageSabLibro(sortColumnName, sortAscending,
-            startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabLibro() throws Exception {
-        SabLibroLogica sabLibroLogic = new SabLibroLogica();
-
-        return sabLibroLogic.findTotalNumberSabLibro();
-    }
-
     public static List<SabPrestamo> getSabPrestamo() throws Exception {
         SabPrestamoLogica sabPrestamoLogic = new SabPrestamoLogica();
 
@@ -442,30 +297,6 @@ public class DelegadoNegocioVista {
         return sabPrestamo;
     }
 
-    public static List<SabPrestamo> findByCriteriaInSabPrestamo(
-        Object[] variables, Object[] variablesBetween,
-        Object[] variablesBetweenDates) throws Exception {
-        SabPrestamoLogica sabPrestamoLogic = new SabPrestamoLogica();
-
-        return sabPrestamoLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabPrestamo> findPageSabPrestamo(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabPrestamoLogica sabPrestamoLogic = new SabPrestamoLogica();
-
-        return sabPrestamoLogic.findPageSabPrestamo(sortColumnName,
-            sortAscending, startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabPrestamo() throws Exception {
-        SabPrestamoLogica sabPrestamoLogic = new SabPrestamoLogica();
-
-        return sabPrestamoLogic.findTotalNumberSabPrestamo();
-    }
-    
     public static List<SabPrestamo> buscarPorUsuarioLibro (Long idLibro, Long idUsuario) throws Exception {
     	try {
 			SabPrestamoLogica sabPrestamoLogic = new SabPrestamoLogica();
@@ -511,30 +342,6 @@ public class DelegadoNegocioVista {
         return sabRol;
     }
 
-    public static List<SabRol> findByCriteriaInSabRol(Object[] variables,
-        Object[] variablesBetween, Object[] variablesBetweenDates)
-        throws Exception {
-        SabRolLogica sabRolLogic = new SabRolLogica();
-
-        return sabRolLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabRol> findPageSabRol(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabRolLogica sabRolLogic = new SabRolLogica();
-
-        return sabRolLogic.findPageSabRol(sortColumnName, sortAscending,
-            startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabRol() throws Exception {
-        SabRolLogica sabRolLogic = new SabRolLogica();
-
-        return sabRolLogic.findTotalNumberSabRol();
-    }
-
     public static List<SabUsuario> getSabUsuario() throws Exception {
         SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
         return sabUsuarioLogic.getSabUsuario();
@@ -543,6 +350,11 @@ public class DelegadoNegocioVista {
     public static SabUsuario consultarUsuarioPorCorreoCodigo(String correo, Long codigo) throws Exception {
         SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
         return sabUsuarioLogic.consultarPorCorreoCodigo(correo, codigo);
+    }
+    
+    public static SabUsuario consultarUsuarioPorCodigo(Long codigo) throws Exception {
+        SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
+        return sabUsuarioLogic.consultarPorCodigo(codigo);
     }
 
     public static void saveSabUsuario(Long codigo, String email,
@@ -579,30 +391,6 @@ public class DelegadoNegocioVista {
         }
 
         return sabUsuario;
-    }
-
-    public static List<SabUsuario> findByCriteriaInSabUsuario(
-        Object[] variables, Object[] variablesBetween,
-        Object[] variablesBetweenDates) throws Exception {
-        SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
-
-        return sabUsuarioLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabUsuario> findPageSabUsuario(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
-
-        return sabUsuarioLogic.findPageSabUsuario(sortColumnName,
-            sortAscending, startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabUsuario() throws Exception {
-        SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
-
-        return sabUsuarioLogic.findTotalNumberSabUsuario();
     }
 
     public static List<SabVolumen> getSabVolumen() throws Exception {
@@ -643,27 +431,4 @@ public class DelegadoNegocioVista {
         return sabVolumen;
     }
 
-    public static List<SabVolumen> findByCriteriaInSabVolumen(
-        Object[] variables, Object[] variablesBetween,
-        Object[] variablesBetweenDates) throws Exception {
-        SabVolumenLogica sabVolumenLogic = new SabVolumenLogica();
-
-        return sabVolumenLogic.findByCriteria(variables, variablesBetween,
-            variablesBetweenDates);
-    }
-
-    public static List<SabVolumen> findPageSabVolumen(String sortColumnName,
-        boolean sortAscending, int startRow, int maxResults)
-        throws Exception {
-        SabVolumenLogica sabVolumenLogic = new SabVolumenLogica();
-
-        return sabVolumenLogic.findPageSabVolumen(sortColumnName,
-            sortAscending, startRow, maxResults);
-    }
-
-    public static Long findTotalNumberSabVolumen() throws Exception {
-        SabVolumenLogica sabVolumenLogic = new SabVolumenLogica();
-
-        return sabVolumenLogic.findTotalNumberSabVolumen();
-    }
 }

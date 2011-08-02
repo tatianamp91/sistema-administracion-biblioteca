@@ -61,7 +61,7 @@ public class SabInicioSesionVista {
 		} catch (Exception e) {
 //			mensaje.addErrorMessage(e.getMessage());
 		}
-		return "goBandejaInicio";
+		return "goConsulta";
 	}
 
 	public HtmlInputText getUsuario() {

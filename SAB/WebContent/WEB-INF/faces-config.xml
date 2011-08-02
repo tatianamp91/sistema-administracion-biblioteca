@@ -20,6 +20,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>sabMensajesVista</managed-bean-name>
+		<managed-bean-class>co.edu.presentacion.vista.SabMensajesVista</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>sabAreaVista</managed-bean-name>
 		<managed-bean-class>co.edu.presentacion.vista.SabAreaVista</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>

@@ -24,9 +24,10 @@
                 <div id="wrapper">
                     <ui:insert name="header">Header</ui:insert>
                     <div id="body" align="center">
-                    	<ice:messages errorClass="msg-error-ind" globalOnly="true" />
+                    	<!-- <ice:messages errorClass="msg-error-ind" globalOnly="true" /> -->
                         <ui:insert name="body">Body</ui:insert>
                         <ui:insert name="footer">Footer</ui:insert>
+                        <ui:include src="/WEB-INF/popups/popupMensajes.jspx" />
                     </div>
                     <!-- end body -->
                 </div>

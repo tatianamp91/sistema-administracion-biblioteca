@@ -1,0 +1,61 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ice:outputDeclaration doctypeRoot="html"
+		doctypePublic="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctypeSystem="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<html>
+		<body>
+			<f:view>
+				<ui:composition>
+					<ice:form id="formPopupMessages" >
+						<ice:panelPopup id="mensaje" visible="#{sabMensajesVista.visible}" modal="true"
+							style="z-index: 50000; width: 280px;" autoCentre="true">
+
+							<f:facet name="header">
+								<ice:panelGrid width="100%" cellpadding="0" cellspacing="0"
+									style="text-align: center;" headerClass="icePanelPopupHeader">
+									<ice:outputText style="color: #000000;" value="#{sabMensajesVista.messageTitulo }" />
+								</ice:panelGrid>
+							</f:facet>
+
+							<f:facet name="body">
+								<div align="center">
+									<ice:panelGrid width="98%" cellpadding="0" cellspacing="0">
+											<table>
+												<tr>  
+													<td>
+														<ice:graphicImage style="height:32px; width:32px;" url="#{sabMensajesVista.messageImage}"/>
+													</td>
+													<td valign="middle">
+														<!--<ice:messages errorClass="msg-error-ind" globalOnly="true"  />-->
+														<ice:outputText value="#{sabMensajesVista.mensaje }" styleClass="#{sabMensajesVista.messageStyle }"></ice:outputText>
+													</td>
+												</tr>
+											</table>
+										<br />
+										<table border="0" align="center" cellpadding="0" cellspacing="0">
+											<tr>
+												<td width="70px" align="center">
+													<ice:commandButton styleClass="button" value="#{lbl.cerrar}" action="#{sabMensajesVista.ocultarMensaje}" id="closeMessage" alt="s"/>
+												</td>
+											</tr>
+										</table>
+									</ice:panelGrid>
+								</div>
+							</f:facet>
+						</ice:panelPopup>
+					</ice:form>
+				</ui:composition>
+			</f:view>
+		</body>
+	</html>
+</jsp:root>
+
+

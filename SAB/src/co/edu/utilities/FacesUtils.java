@@ -51,7 +51,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import co.edu.exceptions.ZMessManager;
 import co.edu.unicatolica.modelo.SabRol;
 import co.edu.unicatolica.modelo.SabUsuario;
 
@@ -60,6 +59,10 @@ public class FacesUtils {
 	public static ServletContext getServletContext() {
 		return (ServletContext) FacesContext.getCurrentInstance()
 				.getExternalContext().getContext();
+	}
+
+	public static FacesContext getFacesContext() {
+		return FacesContext.getCurrentInstance();
 	}
 
 	public static ExternalContext getExternalContext() {
@@ -192,7 +195,7 @@ public class FacesUtils {
 		return request.getAttribute(name);
 	}
 
-	public static Long checkLong(Object input) throws ZMessManager {
+	public static Long checkLong(Object input) throws Exception {
 		if (input == null) {
 			return null;
 		}
@@ -210,12 +213,11 @@ public class FacesUtils {
 		try {
 			return new Long(inputValue.getValue().toString());
 		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
+			throw new Exception(inputValue.getId());
 		}
 	}
 
-	public static String checkString(Object input) throws ZMessManager {
+	public static String checkString(Object input) throws Exception {
 		if (input == null) {
 			return null;
 		}
@@ -233,12 +235,11 @@ public class FacesUtils {
 		try {
 			return new String(inputValue.getValue().toString());
 		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
+			throw new Exception(inputValue.getId());
 		}
 	}
 
-	public static Integer checkInteger(Object input) throws ZMessManager {
+	public static Integer checkInteger(Object input) throws Exception {
 		if (input == null) {
 			return null;
 		}
@@ -256,12 +257,11 @@ public class FacesUtils {
 		try {
 			return new Integer(inputValue.getValue().toString());
 		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
+			throw new Exception(inputValue.getId());
 		}
 	}
 
-	public static Double checkDouble(Object input) throws ZMessManager {
+	public static Double checkDouble(Object input) throws Exception {
 		if (input == null) {
 			return null;
 		}
@@ -279,35 +279,11 @@ public class FacesUtils {
 		try {
 			return new Double(inputValue.getValue().toString());
 		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
+			throw new Exception(inputValue.getId());
 		}
 	}
 
-	public static Float checkFloat(Object input) throws ZMessManager {
-		if (input == null) {
-			return null;
-		}
-
-		UIInput inputValue = (UIInput) input;
-
-		if (inputValue.getValue() == null) {
-			return null;
-		}
-
-		if ((inputValue.getValue()).equals("")) {
-			return null;
-		}
-
-		try {
-			return new Float(inputValue.getValue().toString());
-		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
-		}
-	}
-
-	public static Date checkDate(Object input) throws ZMessManager {
+	public static Date checkDate(Object input) throws Exception {
 		if (input == null) {
 			return null;
 		}
@@ -325,12 +301,11 @@ public class FacesUtils {
 		try {
 			return (Date) inputValue.getValue();
 		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
+			throw new Exception(inputValue.getId());
 		}
 	}
 
-	public static BigInteger checkBigInteger(Object input) throws ZMessManager {
+	public static BigInteger checkBigInteger(Object input) throws Exception {
 		if (input == null) {
 			return null;
 		}
@@ -348,12 +323,11 @@ public class FacesUtils {
 		try {
 			return new BigInteger(inputValue.getValue().toString());
 		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
+			throw new Exception(inputValue.getId());
 		}
 	}
 
-	public static BigDecimal checkBigDecimal(Object input) throws ZMessManager {
+	public static BigDecimal checkBigDecimal(Object input) throws Exception {
 		if (input == null) {
 			return null;
 		}
@@ -371,13 +345,13 @@ public class FacesUtils {
 		try {
 			return new BigDecimal(inputValue.getValue().toString());
 		} catch (Exception e) {
-			throw new ZMessManager().new NotValidFieldException(
-					inputValue.getId());
+			throw new Exception(inputValue.getId());
 		}
 	}
-	
+
 	protected static ResourceBundle getResourceBundle(String messagePropertyName) {
-		ResourceBundle bundle = ResourceBundle.getBundle(messagePropertyName, FacesContext.getCurrentInstance().getViewRoot().getLocale());
+		ResourceBundle bundle = ResourceBundle.getBundle(messagePropertyName,
+				FacesContext.getCurrentInstance().getViewRoot().getLocale());
 		return bundle;
 	}
 
@@ -391,7 +365,7 @@ public class FacesUtils {
 			return "??" + key + "??";
 		}
 	}
-	
+
 	public static String getEtiqueta(String key) {
 		try {
 			String messageBundle = "co.edu.presentacion.etiquetas.etiquetas";
@@ -402,7 +376,7 @@ public class FacesUtils {
 			return "??" + key + "??";
 		}
 	}
-	
+
 	public static String getParametros(String key) {
 		try {
 			String messageBundle = "co.edu.presentacion.etiquetas.parametros";
@@ -413,34 +387,34 @@ public class FacesUtils {
 			return "??" + key + "??";
 		}
 	}
-	
-	protected static Object getUserAuth(){
+
+	protected static Object getUserAuth() {
 		return getfromSession("usuario");
 	}
-	
-	public static String getUserName(){
+
+	public static String getUserName() {
 		SabUsuario sabUsuario = (SabUsuario) getUserAuth();
-		if(sabUsuario != null){
+		if (sabUsuario != null) {
 			return sabUsuario.getNombreCompleto();
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
-	public static Long getUserId(){
+
+	public static Long getUserId() {
 		SabUsuario sapUsuario = (SabUsuario) getUserAuth();
-		if(sapUsuario != null){
+		if (sapUsuario != null) {
 			return sapUsuario.getIdUsuario();
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
-	public static SabRol getUserRol(){
+
+	public static SabRol getUserRol() {
 		SabUsuario sapUsuario = (SabUsuario) getUserAuth();
-		if(sapUsuario != null){
+		if (sapUsuario != null) {
 			return sapUsuario.getSabRol();
-		}else{
+		} else {
 			return null;
 		}
 	}

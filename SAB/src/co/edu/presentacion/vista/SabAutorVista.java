@@ -11,6 +11,9 @@ import com.icesoft.faces.component.ext.HtmlCommandButton;
 import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabAutorVista {
+	
+	private SabMensajesVista mensaje;
+	
     private HtmlInputText txtNombre;
     private Long idAutor;
     private HtmlCommandButton btnSave;
@@ -21,6 +24,8 @@ public class SabAutorVista {
     List<SabAutor> sabAutor = new ArrayList<SabAutor>();
 
     public SabAutorVista() {
+    	mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
+
     	txtNombre = new HtmlInputText();
     	btnSave = new HtmlCommandButton();
     	btnModify = new HtmlCommandButton();
@@ -44,10 +49,10 @@ public class SabAutorVista {
     public String action_save() {
         try {
             DelegadoNegocioVista.saveSabAutor(FacesUtils.checkString(txtNombre));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("autor.guardado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("autor.guardado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -56,10 +61,10 @@ public class SabAutorVista {
     public String action_delete() {
         try {
         	DelegadoNegocioVista.deleteSabAutor(idAutor);
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("autor.eliminado"));
+        	mensaje.addInfoMessage(FacesUtils.getMensaje("autor.eliminado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
@@ -74,35 +79,32 @@ public class SabAutorVista {
    	        btnDelete.setDisabled(false);
    	        btnModify.setDisabled(false);
    	        btnClear.setDisabled(false);
-   			
     		}else{
-    			throw new Exception("NO SE ENCONTRO EL AUTOR");
+    			throw new Exception(FacesUtils.getMensaje("error.autor.no.encontrado"));
     		}
     	}catch (Exception e){
-    		FacesUtils.addErrorMessage(e.getMessage());	
+    		mensaje.addErrorMessage(e.getMessage());	
     	}return "";
  	}
     
     public String action_modify() {
         try {
             DelegadoNegocioVista.updateSabAutor(idAutor, FacesUtils.checkString(txtNombre));
-            FacesUtils.addInfoMessage(FacesUtils.getMensaje("autor.modificado"));
+            mensaje.addInfoMessage(FacesUtils.getMensaje("autor.modificado"));
             action_clear();
         } catch (Exception e) {
-            FacesUtils.addErrorMessage(e.getMessage());
+        	mensaje.addErrorMessage(e.getMessage());
         }
 
         return "";
     }
-
   
     public List<SabAutor> getSabAutor() {
-            try {
-                sabAutor = DelegadoNegocioVista.getSabAutor();
-            } catch (Exception e) {
-                FacesUtils.addErrorMessage(e.getMessage());
-            }
-
+        try {
+            sabAutor = DelegadoNegocioVista.getSabAutor();
+        } catch (Exception e) {
+        	mensaje.addErrorMessage(e.getMessage());
+        }
         return sabAutor;
     }
 
