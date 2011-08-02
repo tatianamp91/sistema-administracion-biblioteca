@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import co.edu.accesodatos.session.HibernateSessionFactory;
@@ -245,11 +246,11 @@ public class SabPrestamoDAO {
     		if(idLibro != null){
     			criteria.add(Restrictions.eq("sabLibro.idLibro", idLibro));
     		}
-    		
     		if(idUsuario != null){
-    			criteria.add(Restrictions.eq("sabUsuario.idUsuario", idUsuario));
+    			criteria.createCriteria("sabUsuario").add(Restrictions.eq("codigo", idUsuario));
     		}
     		
+    		criteria.addOrder(Order.asc("estadoPrestamo"));
     		return findByCriteria(criteria);
     	} catch (RuntimeException re) {
             log.error("buscar por usuario falló", re);

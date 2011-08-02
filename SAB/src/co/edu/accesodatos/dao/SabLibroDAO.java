@@ -4,9 +4,14 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import co.edu.accesodatos.session.HibernateSessionFactory;
 import co.edu.unicatolica.modelo.SabLibro;
@@ -249,4 +254,37 @@ public class SabLibroDAO {
             throw re;
         }
     }
+    
+    public List<SabLibro> findByCriteria(DetachedCriteria criteria) {
+		if (criteria == null) {
+			throw new IllegalArgumentException("DetachedCriteria must not be null");
+		}
+		Criteria executableCriteria = criteria.getExecutableCriteria(getSession());
+		return executableCriteria.list();
+	}
+    
+    public List<SabLibro> consultarLibrosFiltro(Long idLibro, String titulo, Long idArea, String autor){
+    	try {
+	    	DetachedCriteria criteria = DetachedCriteria.forClass(SabLibro.class);
+	    	
+	    	if(idLibro != null){
+	    		criteria.add(Restrictions.eq("idLibro", idLibro));
+	    	}
+	    	if(titulo != null && !titulo.isEmpty()){
+	    		criteria.add(Restrictions.like("titulo", titulo, MatchMode.ANYWHERE));
+	    	}
+	    	if(idArea != null && !idArea.equals(0L)){
+	    		criteria.add(Restrictions.eq("sabArea.idArea", idArea));
+	    	}
+	    	if(autor != null && !autor.isEmpty()){
+	    		criteria.createCriteria("sabLibroAutors").createCriteria("sabAutor").add(Restrictions.like("nombre", autor, MatchMode.ANYWHERE));
+	    	}
+	    	
+	    	criteria.addOrder(Order.asc("titulo"));
+	    	return findByCriteria(criteria);
+    	} catch (RuntimeException re) {
+            throw re;
+        }
+    }
+    
 }
