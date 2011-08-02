@@ -99,13 +99,6 @@ public class SabPrestamoVista  {
 			    		sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(idLibro, FacesUtils.checkLong(codigoUsuario));
 			    		autores = new ArrayList<SabLibroAutor>();
 			    		autores.addAll(sabLibroo.getSabLibroAutors());
-			    		if(cantidad.equals(cantidad_prestados)){
-			    			btnSave.setDisabled(true);
-			    			throw new Exception(FacesUtils.getMensaje("prestamo.no.posible"));
-			    		}else{
-			    			btnSave.setDisabled(false);
-			    		}
-			    		
 		    		}else{
 		    			throw new Exception(FacesUtils.getMensaje("error.libro.no.encontrado"));
 		    		}
@@ -204,9 +197,21 @@ public class SabPrestamoVista  {
         return "";
     }
 
+    public void validar() throws Exception{
+    	if(idUsuario == null){
+    		throw new Exception(FacesUtils.getMensaje("error.idUsuario"));
+    	}
+    	if(idLibro == null || (idLibro != null && idLibro.getValue() == null)){
+    		throw new Exception(FacesUtils.getMensaje("error.idLibro"));
+    	}
+    	if(idLibro != null && cantidad.equals(cantidad_prestados)){
+			throw new Exception(FacesUtils.getMensaje("prestamo.no.posible"));
+		}
+    }
 
     public String action_save() {
         try {
+        	validar();
         	estadoPrestamo = Long.parseLong(FacesUtils.getEtiqueta("estadoActivo"));
         	Date fechaActual = new Date();
         	if(fechaActual.before(FacesUtils.checkDate(txtFechaDevolucion))){
@@ -214,7 +219,6 @@ public class SabPrestamoVista  {
 	                (estadoPrestamo), FacesUtils.checkDate(txtFechaDevolucion), new Date(),
 	                FacesUtils.checkDate(txtFechaRealDevolucion));
 	        	mensaje.addInfoMessage(FacesUtils.getMensaje("prestamo.guardadoUno") + nombreLibro + " " + FacesUtils.getMensaje("prestamo.guardadoDos"));
-	            action_clearUsuario();
 		    	action_clearLibro();
         	}else{
         		throw new Exception(FacesUtils.getMensaje("prestamo.no.guardado"));
@@ -233,11 +237,9 @@ public class SabPrestamoVista  {
         	DelegadoNegocioVista.devolverSabPrestamo(idPrestamo, estadoPrestamo);
         	mensaje.addInfoMessage(FacesUtils.getMensaje("prestamo.devuelto"));
             action_clearLibro();
-            action_clearUsuario();
         } catch (Exception e) {
         	mensaje.addErrorMessage(e.getMessage());
         }
-
         return "";
     }
 

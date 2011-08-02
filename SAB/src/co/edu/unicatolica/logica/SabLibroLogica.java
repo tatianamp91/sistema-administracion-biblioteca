@@ -328,5 +328,13 @@ public class SabLibroLogica {
         }
         return entity;
     }
+    
+    public List<SabLibro> consultarLibrosFiltro(Long idLibro, String titulo, Long idArea, String autor) throws Exception{
+    	try{
+    		return XMLHibernateDaoFactory.getInstance().getSabLibroDAO().consultarLibrosFiltro(idLibro, titulo, idArea, autor);
+    	 } catch (Exception e) {
+             throw e;
+         }
+    }
 
 }

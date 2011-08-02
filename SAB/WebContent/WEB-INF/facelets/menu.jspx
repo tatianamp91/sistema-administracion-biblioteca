@@ -17,10 +17,11 @@
 	<ice:commandLink value="#{lbl.mnuVolumen}" styleClass="enlace1" action="goVolumen" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
 
 	<!-- PRESTAMO -->
-	<ice:panelGroup styleClass="marcoImportante" rendered="#{sabMenuVista.administrador}">
+	<ice:panelGroup styleClass="marcoImportante" rendered="#{sabMenuVista.administrador || sabMenuVista.profesorEstudiante || sabMenuVista.otro}">
 		<ice:outputText value="#{lbl.mnuPrest}" styleClass="texto1"></ice:outputText>
 	</ice:panelGroup>
 	<ice:commandLink value="#{lbl.mnuPrestamo}" styleClass="enlace1" action="goPrestamo" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuConsultaPrestamo}" styleClass="enlace1" action="goConsultaPrestamo" rendered="#{sabMenuVista.profesorEstudiante || sabMenuVista.otro}"></ice:commandLink>
 
 	<!-- CONSULTA -->
 	<ice:panelGroup styleClass="marcoImportante">

@@ -221,6 +221,11 @@ public class DelegadoNegocioVista {
         return sabLibroLogic.getSabLibro();
     }
 
+    public static List<SabLibro> consultarLibrosFiltro(Long idLibro, String titulo, Long idArea, String autor) throws Exception{
+    	SabLibroLogica sabLibroLogic = new SabLibroLogica();
+        return sabLibroLogic.consultarLibrosFiltro(idLibro, titulo, idArea, autor);
+    }
+    
     public static void saveSabLibro(Long cantidad, Long cantidadPrestados,
         String titulo, Long idArea_SabArea,
         Long idEdicion_SabEdicion, Long idEditorial_SabEditorial,
