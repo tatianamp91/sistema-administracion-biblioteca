@@ -302,7 +302,7 @@ public class DelegadoNegocioVista {
         return sabPrestamo;
     }
 
-    public static List<SabPrestamo> buscarPorUsuarioLibro (Long idLibro, Long idUsuario) throws Exception {
+    public static List<SabPrestamo> buscarPorUsuarioLibro (Long idLibro, String idUsuario) throws Exception {
     	try {
 			SabPrestamoLogica sabPrestamoLogic = new SabPrestamoLogica();
 			return sabPrestamoLogic.buscarPorUsuarioLibro(idLibro, idUsuario);
@@ -352,17 +352,17 @@ public class DelegadoNegocioVista {
         return sabUsuarioLogic.getSabUsuario();
     }
     
-    public static SabUsuario consultarUsuarioPorCorreoCodigo(String correo, Long codigo) throws Exception {
+    public static SabUsuario consultarUsuarioPorCorreoCodigo(String correo, String codigo) throws Exception {
         SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
         return sabUsuarioLogic.consultarPorCorreoCodigo(correo, codigo);
     }
     
-    public static SabUsuario consultarUsuarioPorCodigo(Long codigo) throws Exception {
+    public static SabUsuario consultarUsuarioPorCodigo(String codigo) throws Exception {
         SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
         return sabUsuarioLogic.consultarPorCodigo(codigo);
     }
 
-    public static void saveSabUsuario(Long codigo, String email,
+    public static void saveSabUsuario(String codigo, String email,
         String nombreCompleto, Long numIdentificacion,
         Long idRol_SabRol) throws Exception {
         SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();
@@ -376,7 +376,7 @@ public class DelegadoNegocioVista {
         sabUsuarioLogic.deleteSabUsuario(idUsuario);
     }
 
-    public static void updateSabUsuario(Long codigo, String email,
+    public static void updateSabUsuario(String codigo, String email,
         Long idUsuario, String nombreCompleto, Long numIdentificacion,
         Long idRol_SabRol) throws Exception {
         SabUsuarioLogica sabUsuarioLogic = new SabUsuarioLogica();

@@ -14,19 +14,6 @@ import org.hibernate.criterion.Restrictions;
 import co.edu.accesodatos.session.HibernateSessionFactory;
 import co.edu.unicatolica.modelo.SabUsuario;
 
-
-/**
- * A data access object (DAO) providing persistence and search support for
- * SabUsuario entities. Transaction control of the save(), update() and
- * delete() operations can directly support Spring container-managed
- * transactions or they can be augmented to handle user-managed Spring
- * transactions. Each of these methods provides additional information for how
- * to configure it for the desired type of transaction control.
- *
- *
- * @author Zathura Code Generator http://code.google.com/p/zathura
- *
- */
 public class SabUsuarioDAO {
     private static final Log log = LogFactory.getLog(SabUsuarioDAO.class);
 
@@ -50,13 +37,6 @@ public class SabUsuarioDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabUsuario Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabUsuario instance) {
         log.debug("saving SabUsuario instance");
 
@@ -69,12 +49,6 @@ public class SabUsuarioDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabUsuario Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabUsuario instance) {
         log.debug("deleting SabUsuario instance");
 
@@ -87,13 +61,6 @@ public class SabUsuarioDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabUsuario Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabUsuario instance) {
         log.debug("updating SabUsuario instance");
 
@@ -136,15 +103,6 @@ public class SabUsuarioDAO {
         }
     }
 
-    /**
-    * Find all  SabUsuario entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabUsuario> found by query
-        */
     public List<SabUsuario> findByProperty(String propertyName, Object value) {
         log.debug("finding SabUsuario instance with property: " + propertyName +
             ", value: " + value);
@@ -182,16 +140,11 @@ public class SabUsuarioDAO {
         return findByProperty(NUMIDENTIFICACION, numIdentificacion);
     }
 
-    /**
-    * Find all SabUsuario entities.
-    *
-    * @return List<SabUsuario> all SabUsuario instances
-    */
     public List<SabUsuario> findAll() {
         log.debug("finding all SabUsuario instances");
 
         try {
-            String queryString = "from SabUsuario";
+            String queryString = "from SabUsuario order by idUsuario";
             Query queryObject = getSession().createQuery(queryString);
 
             return queryObject.list();
@@ -261,7 +214,7 @@ public class SabUsuarioDAO {
         }
     }
     
-    public SabUsuario consultarPorCorreoCodigo(String correo, Long codigo) {
+    public SabUsuario consultarPorCorreoCodigo(String correo, String codigo) {
         log.debug("finding SapUsuario findPageSapUsuario");
         try {
         	DetachedCriteria criteria = DetachedCriteria.forClass(SabUsuario.class);
@@ -279,7 +232,7 @@ public class SabUsuarioDAO {
         }
     }
     
-    public SabUsuario consultarPorCodigo(Long codigo) {
+    public SabUsuario consultarPorCodigo(String codigo) {
         log.debug("finding SapUsuario findPageSapUsuario");
         try {
         	DetachedCriteria criteria = DetachedCriteria.forClass(SabUsuario.class);

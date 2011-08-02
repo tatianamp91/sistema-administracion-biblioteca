@@ -1,0 +1,118 @@
+<jsp:root jsfc="f:view" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<html>
+	<body>
+	<f:view>
+		<ui:composition template="/WEB-INF/facelets/mainTemplate.jspx">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+			<br />
+			<ui:define name="body">
+				<ice:form>
+					<table cellpadding="0" cellspacing="0" style="width: 81%;">
+						<tr>
+							<td width="20%">
+							<fieldset style="height: 700px;"><ui:include
+								src="/WEB-INF/facelets/menu.jspx" /></fieldset>
+							</td>
+							<td width="80%">
+							<fieldset style="height: 700px; width: 98%;">
+							<div align="center">
+							<br/>
+								<ice:outputText value="#{lbl.consultaPrestamo}" styleClass="titulo"></ice:outputText>
+							<br/>
+							<ice:dataTable id="tablaConsultaPrestamo" value="#{sabConsultaPrestamoVista.listConsulta}" var="sabPrestamo" width="91%" rows="7">
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.idLibro}"></ice:outputText>
+									</f:facet>
+									<div align="center">
+										<ice:outputText value="#{sabPrestamo.sabLibro.idLibro}"></ice:outputText>
+									</div>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.libro}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabPrestamo.sabLibro.titulo}"></ice:outputText>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.fechaPre}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabPrestamo.fechaPrestamo}"></ice:outputText>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.fechaDev}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabPrestamo.fechaDevolucion}"></ice:outputText>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.fechaRea}"></ice:outputText>
+									</f:facet>
+									<ice:outputText value="#{sabPrestamo.fechaRealDevolucion}"></ice:outputText>
+								</ice:column>
+								<ice:column>
+									<f:facet name="header">
+										<ice:outputText value="#{lbl.estado_prestamo}"></ice:outputText>
+									</f:facet>
+									<div align="center">
+										<ice:outputText value="#{sabPrestamo.estadoPrestamo eq lbl.estadoActivo ? lbl.prestado 
+											: sabPrestamo.estadoPrestamo eq lbl.estadoInactivo ? lbl.entregado : ''}"></ice:outputText>
+									</div>
+								</ice:column>
+							</ice:dataTable>
+							
+							<ice:dataPaginator for="tablaConsultaPrestamo" fastStep="3" 
+								paginator="true" renderFacetsIfSinglePage="false" paginatorMaxPages="7">
+									<f:facet name="first">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="last">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="previous">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="fastforward">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
+											style="border:none;" />
+									</f:facet>
+									<f:facet name="fastrewind">
+										<ice:graphicImage 
+											url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
+											style="border:none;" />
+									</f:facet>
+								</ice:dataPaginator>
+							</div>
+							</fieldset>
+							</td>
+						</tr>
+					</table>
+				</ice:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+	</body>
+	</html>
+</jsp:root>

@@ -28,13 +28,6 @@ public class SabEdicionDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabEdicion Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabEdicion instance) {
         log.debug("saving SabEdicion instance");
 
@@ -47,12 +40,6 @@ public class SabEdicionDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabEdicion Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabEdicion instance) {
         log.debug("deleting SabEdicion instance");
 
@@ -65,13 +52,6 @@ public class SabEdicionDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabEdicion Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabEdicion instance) {
         log.debug("updating SabEdicion instance");
 
@@ -114,15 +94,6 @@ public class SabEdicionDAO {
         }
     }
 
-    /**
-    * Find all  SabEdicion entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabEdicion> found by query
-        */
     public List<SabEdicion> findByProperty(String propertyName, Object value) {
         log.debug("finding SabEdicion instance with property: " + propertyName +
             ", value: " + value);
@@ -152,11 +123,6 @@ public class SabEdicionDAO {
         return findByProperty(IDEDICION, idEdicion);
     }
 
-    /**
-    * Find all SabEdicion entities.
-    *
-    * @return List<SabEdicion> all SabEdicion instances
-    */
     public List<SabEdicion> findAll() {
         log.debug("finding all SabEdicion instances");
 

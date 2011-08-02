@@ -74,7 +74,7 @@ public class SabUsuarioVista{
   
     public String action_save() {
         try {
-            DelegadoNegocioVista.saveSabUsuario(FacesUtils.checkLong(txtCodigo),
+            DelegadoNegocioVista.saveSabUsuario(FacesUtils.checkString(txtCodigo),
                 FacesUtils.checkString(txtEmail),
                 FacesUtils.checkString(txtNombreCompleto),
                 FacesUtils.checkLong(txtNumIdentificacion), (idRol));
@@ -123,7 +123,7 @@ public class SabUsuarioVista{
     
     public String action_modify() {
         try {
-            DelegadoNegocioVista.updateSabUsuario(FacesUtils.checkLong(
+            DelegadoNegocioVista.updateSabUsuario(FacesUtils.checkString(
                     txtCodigo), FacesUtils.checkString(txtEmail), (idUsuario),
                 FacesUtils.checkString(txtNombreCompleto),
                 FacesUtils.checkLong(txtNumIdentificacion), (idRol));

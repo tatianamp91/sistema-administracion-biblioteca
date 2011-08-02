@@ -9,13 +9,12 @@ import com.icesoft.faces.component.ext.HtmlInputText;
 
 public class SabInicioSesionVista {
 
-//	private MensajesView mensaje;
+	private SabMensajesVista mensaje;
 	private HtmlInputText usuario;
 	private HtmlInputText contrasenia;
 
 	public SabInicioSesionVista() {
-		super();
-//		mensaje = (MensajesView) FacesUtils.getManagedBean("mensajesView");
+		mensaje = (SabMensajesVista) FacesUtils.getManagedBean("sabMensajesVista");
 		usuario = new HtmlInputText();
 		contrasenia = new HtmlInputSecret();
 	}
@@ -35,7 +34,7 @@ public class SabInicioSesionVista {
 				throw new Exception(FacesUtils.getMensaje("error.inicioSesion.noContrasenia"));
 			}
 			
-			SabUsuario sabUsuario = DelegadoNegocioVista.consultarUsuarioPorCorreoCodigo(usuario.getValue().toString().trim(), Long.parseLong(contrasenia.getValue().toString()));
+			SabUsuario sabUsuario = DelegadoNegocioVista.consultarUsuarioPorCorreoCodigo(usuario.getValue().toString().trim(), contrasenia.getValue().toString());
 			if (sabUsuario == null) {
 				throw new Exception(FacesUtils.getMensaje("error.inicioSesion.noValidoCodigo"));
 			}
@@ -43,11 +42,15 @@ public class SabInicioSesionVista {
 			
 			if(sabUsuario.getSabRol().getIdRol().equals(Long.parseLong(FacesUtils.getParametros("rolAdministrador")))){
 				return "goPrestamo";
+			}else if(sabUsuario.getSabRol().getIdRol().equals(Long.parseLong(FacesUtils.getParametros("rolEstudiante")))
+					|| sabUsuario.getSabRol().getIdRol().equals(Long.parseLong(FacesUtils.getParametros("rolProfesor")))
+					|| sabUsuario.getSabRol().getIdRol().equals(Long.parseLong(FacesUtils.getParametros("rolOtros")))){
+				return "goConsultaPrestamo";
 			}else{
 				return "goConsulta";
 			}
 		} catch (Exception e) {
-//			mensaje.addErrorMessage(e.getMessage());
+			mensaje.addErrorMessage(e.getMessage());
 		}
 		return "";
 	}
@@ -59,7 +62,7 @@ public class SabInicioSesionVista {
 			sapUsuario.setNombreCompleto("Invitado");
 			FacesUtils.putinSession("usuario", sapUsuario);
 		} catch (Exception e) {
-//			mensaje.addErrorMessage(e.getMessage());
+			mensaje.addErrorMessage(e.getMessage());
 		}
 		return "goConsulta";
 	}

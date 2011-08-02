@@ -56,13 +56,6 @@ public class SabPrestamoDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabPrestamo Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabPrestamo instance) {
         log.debug("updating SabPrestamo instance");
 
@@ -105,15 +98,6 @@ public class SabPrestamoDAO {
         }
     }
 
-    /**
-    * Find all  SabPrestamo entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabPrestamo> found by query
-        */
     public List<SabPrestamo> findByProperty(String propertyName, Object value) {
         log.debug("finding SabPrestamo instance with property: " +
             propertyName + ", value: " + value);
@@ -152,11 +136,6 @@ public class SabPrestamoDAO {
         return findByProperty(ID, id);
     }
 
-    /**
-    * Find all SabPrestamo entities.
-    *
-    * @return List<SabPrestamo> all SabPrestamo instances
-    */
     public List<SabPrestamo> findAll() {
         log.debug("finding all SabPrestamo instances");
 
@@ -239,7 +218,7 @@ public class SabPrestamoDAO {
 		return executableCriteria.list();
 	}
     
-    public List<SabPrestamo> buscarPorUsuarioLibro(Long idLibro, Long idUsuario) {
+    public List<SabPrestamo> buscarPorUsuarioLibro(Long idLibro, String idUsuario) {
     	try{
     		DetachedCriteria criteria = DetachedCriteria.forClass(SabPrestamo.class);
     		

@@ -147,7 +147,7 @@ public class SabPrestamoLogica {
         return entity;
     }
     
-    public List<SabPrestamo> buscarPorUsuarioLibro(Long idLibro, Long idUsuario) throws Exception{
+    public List<SabPrestamo> buscarPorUsuarioLibro(Long idLibro, String idUsuario) throws Exception{
     	try {
 			return XMLHibernateDaoFactory.getInstance().getSabPrestamoDAO().buscarPorUsuarioLibro(idLibro, idUsuario);
 		} catch (Exception e) {

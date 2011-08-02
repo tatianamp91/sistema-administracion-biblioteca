@@ -96,7 +96,7 @@ public class SabPrestamoVista  {
 			    		cantidad_prestados = sabLibroo.getCantidadPrestados();
 			    		area = sabLibroo.getSabArea().getNombre();
 			    		
-			    		sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(idLibro, FacesUtils.checkLong(codigoUsuario));
+			    		sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(idLibro, FacesUtils.checkString(codigoUsuario));
 			    		autores = new ArrayList<SabLibroAutor>();
 			    		autores.addAll(sabLibroo.getSabLibroAutors());
 		    		}else{
@@ -115,12 +115,8 @@ public class SabPrestamoVista  {
     	try {
 	    	if(event.getNewValue()!=  null && !event.getNewValue().equals(event.getOldValue())){
 	    		if(!event.getNewValue().toString().isEmpty()){
-	    			Long codigoUsuario;
-	    			if(Utilities.isNumeric(event.getNewValue().toString()) ){
-	    				codigoUsuario = Long.parseLong(event.getNewValue().toString());
-	    			}else{
-	    				throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
-	    			}
+	    			String codigoUsuario;
+    				codigoUsuario = event.getNewValue().toString();
 		    		SabUsuario sabUsuarioo = DelegadoNegocioVista.consultarUsuarioPorCodigo(codigoUsuario);				
 		    		
 		    		if(sabUsuarioo!=null){
@@ -175,15 +171,10 @@ public class SabPrestamoVista  {
 	        cantidad_prestados = null;
 	        area = null;
 	        
-	        Long codigoUsuario;
 			if(this.codigoUsuario.getValue() != null && !this.codigoUsuario.getValue().toString().isEmpty()){
-				if(Utilities.isNumeric(this.codigoUsuario.getValue().toString()) ){
-					codigoUsuario = Long.parseLong(this.codigoUsuario.getValue().toString());
-					if(codigoUsuario != null){
-						sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(null, codigoUsuario);
-					}
-				}else{
-					throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
+				String codigoUsuario = this.codigoUsuario.getValue().toString();
+				if(codigoUsuario != null){
+					sabPrestamo = DelegadoNegocioVista.buscarPorUsuarioLibro(null, codigoUsuario);
 				}
 			}
 	        txtFechaDevolucion.setValue(null);
