@@ -12,19 +12,6 @@ import co.edu.accesodatos.session.HibernateSessionFactory;
 import co.edu.unicatolica.modelo.SabLibroAutor;
 import co.edu.unicatolica.modelo.SabLibroAutorId;
 
-
-/**
- * A data access object (DAO) providing persistence and search support for
- * SabLibroAutor entities. Transaction control of the save(), update() and
- * delete() operations can directly support Spring container-managed
- * transactions or they can be augmented to handle user-managed Spring
- * transactions. Each of these methods provides additional information for how
- * to configure it for the desired type of transaction control.
- *
- *
- * @author Zathura Code Generator http://code.google.com/p/zathura
- *
- */
 public class SabLibroAutorDAO {
     private static final Log log = LogFactory.getLog(SabLibroAutorDAO.class);
 
@@ -36,13 +23,6 @@ public class SabLibroAutorDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabLibroAutor Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabLibroAutor instance) {
         log.debug("saving SabLibroAutor instance");
 
@@ -55,12 +35,6 @@ public class SabLibroAutorDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabLibroAutor Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabLibroAutor instance) {
         log.debug("deleting SabLibroAutor instance");
 
@@ -73,13 +47,6 @@ public class SabLibroAutorDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabLibroAutor Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabLibroAutor instance) {
         log.debug("updating SabLibroAutor instance");
 
@@ -123,15 +90,6 @@ public class SabLibroAutorDAO {
         }
     }
 
-    /**
-    * Find all  SabLibroAutor entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabLibroAutor> found by query
-        */
     public List<SabLibroAutor> findByProperty(String propertyName, Object value) {
         log.debug("finding SabLibroAutor instance with property: " +
             propertyName + ", value: " + value);
@@ -153,11 +111,6 @@ public class SabLibroAutorDAO {
         return findByProperty(ID, id);
     }
 
-    /**
-    * Find all SabLibroAutor entities.
-    *
-    * @return List<SabLibroAutor> all SabLibroAutor instances
-    */
     public List<SabLibroAutor> findAll() {
         log.debug("finding all SabLibroAutor instances");
 

@@ -11,19 +11,6 @@ import org.hibernate.criterion.Example;
 import co.edu.accesodatos.session.HibernateSessionFactory;
 import co.edu.unicatolica.modelo.SabVolumen;
 
-
-/**
- * A data access object (DAO) providing persistence and search support for
- * SabVolumen entities. Transaction control of the save(), update() and
- * delete() operations can directly support Spring container-managed
- * transactions or they can be augmented to handle user-managed Spring
- * transactions. Each of these methods provides additional information for how
- * to configure it for the desired type of transaction control.
- *
- *
- * @author Zathura Code Generator http://code.google.com/p/zathura
- *
- */
 public class SabVolumenDAO {
     private static final Log log = LogFactory.getLog(SabVolumenDAO.class);
 
@@ -41,13 +28,6 @@ public class SabVolumenDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabVolumen Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabVolumen instance) {
         log.debug("saving SabVolumen instance");
 
@@ -60,12 +40,6 @@ public class SabVolumenDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabVolumen Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabVolumen instance) {
         log.debug("deleting SabVolumen instance");
 
@@ -78,13 +52,6 @@ public class SabVolumenDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabVolumen Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabVolumen instance) {
         log.debug("updating SabVolumen instance");
 
@@ -127,15 +94,6 @@ public class SabVolumenDAO {
         }
     }
 
-    /**
-    * Find all  SabVolumen entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabVolumen> found by query
-        */
     public List<SabVolumen> findByProperty(String propertyName, Object value) {
         log.debug("finding SabVolumen instance with property: " + propertyName +
             ", value: " + value);
@@ -165,11 +123,6 @@ public class SabVolumenDAO {
         return findByProperty(IDVOLUMEN, idVolumen);
     }
 
-    /**
-    * Find all SabVolumen entities.
-    *
-    * @return List<SabVolumen> all SabVolumen instances
-    */
     public List<SabVolumen> findAll() {
         log.debug("finding all SabVolumen instances");
 

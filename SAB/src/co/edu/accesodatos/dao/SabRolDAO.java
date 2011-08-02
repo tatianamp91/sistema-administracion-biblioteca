@@ -11,19 +11,6 @@ import org.hibernate.criterion.Example;
 import co.edu.accesodatos.session.HibernateSessionFactory;
 import co.edu.unicatolica.modelo.SabRol;
 
-
-/**
- * A data access object (DAO) providing persistence and search support for
- * SabRol entities. Transaction control of the save(), update() and
- * delete() operations can directly support Spring container-managed
- * transactions or they can be augmented to handle user-managed Spring
- * transactions. Each of these methods provides additional information for how
- * to configure it for the desired type of transaction control.
- *
- *
- * @author Zathura Code Generator http://code.google.com/p/zathura
- *
- */
 public class SabRolDAO {
     private static final Log log = LogFactory.getLog(SabRolDAO.class);
 
@@ -38,13 +25,6 @@ public class SabRolDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabRol Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabRol instance) {
         log.debug("saving SabRol instance");
 
@@ -57,12 +37,6 @@ public class SabRolDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabRol Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabRol instance) {
         log.debug("deleting SabRol instance");
 
@@ -75,13 +49,6 @@ public class SabRolDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabRol Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabRol instance) {
         log.debug("updating SabRol instance");
 
@@ -123,15 +90,6 @@ public class SabRolDAO {
         }
     }
 
-    /**
-    * Find all  SabRol entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabRol> found by query
-        */
     public List<SabRol> findByProperty(String propertyName, Object value) {
         log.debug("finding SabRol instance with property: " + propertyName +
             ", value: " + value);
@@ -157,11 +115,6 @@ public class SabRolDAO {
         return findByProperty(IDROL, idRol);
     }
 
-    /**
-    * Find all SabRol entities.
-    *
-    * @return List<SabRol> all SabRol instances
-    */
     public List<SabRol> findAll() {
         log.debug("finding all SabRol instances");
 

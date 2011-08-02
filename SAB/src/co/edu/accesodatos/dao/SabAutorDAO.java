@@ -25,13 +25,6 @@ public class SabAutorDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabAutor Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabAutor instance) {
         log.debug("saving SabAutor instance");
 
@@ -44,12 +37,6 @@ public class SabAutorDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabAutor Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabAutor instance) {
         log.debug("deleting SabAutor instance");
 
@@ -62,13 +49,6 @@ public class SabAutorDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabAutor Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabAutor instance) {
         log.debug("updating SabAutor instance");
 
@@ -110,15 +90,6 @@ public class SabAutorDAO {
         }
     }
 
-    /**
-    * Find all  SabAutor entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabAutor> found by query
-        */
     public List<SabAutor> findByProperty(String propertyName, Object value) {
         log.debug("finding SabAutor instance with property: " + propertyName +
             ", value: " + value);
@@ -144,11 +115,6 @@ public class SabAutorDAO {
         return findByProperty(NOMBRE, nombre);
     }
 
-    /**
-    * Find all SabAutor entities.
-    *
-    * @return List<SabAutor> all SabAutor instances
-    */
     public List<SabAutor> findAll() {
         log.debug("finding all SabAutor instances");
 

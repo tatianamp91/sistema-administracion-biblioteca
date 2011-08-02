@@ -28,13 +28,6 @@ public class SabAreaDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabArea Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabArea instance) {
         log.debug("saving SabArea instance");
 
@@ -47,12 +40,6 @@ public class SabAreaDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabArea Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabArea instance) {
         log.debug("deleting SabArea instance");
 
@@ -65,13 +52,6 @@ public class SabAreaDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabArea Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabArea instance) {
         log.debug("updating SabArea instance");
 
@@ -113,15 +93,6 @@ public class SabAreaDAO {
         }
     }
 
-    /**
-    * Find all  SabArea entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabArea> found by query
-        */
     public List<SabArea> findByProperty(String propertyName, Object value) {
         log.debug("finding SabArea instance with property: " + propertyName +
             ", value: " + value);
@@ -151,11 +122,6 @@ public class SabAreaDAO {
         return findByProperty(NOMBRE, nombre);
     }
 
-    /**
-    * Find all SabArea entities.
-    *
-    * @return List<SabArea> all SabArea instances
-    */
     public List<SabArea> findAll() {
         log.debug("finding all SabArea instances");
 

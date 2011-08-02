@@ -72,12 +72,15 @@ public class SabFiltros implements Filter {
 							cambioAcceso = 0;
 						if (pageRequested.contains("volumen.jspx"))
 							cambioAcceso = 0;
+						if (pageRequested.contains("consultaPrestamo.jspx"))
+							cambioAcceso = 0;
 					}
 	
-					// Estudiante Profesor
+					// Estudiante Profesor otro
 					else if (usuario.getSabRol().getIdRol().equals(estudiante)
-							|| usuario.getSabRol().getIdRol().equals(profesor)) {
-						if (pageRequested.contains("asignarComite.jspx"))
+							|| usuario.getSabRol().getIdRol().equals(profesor)
+							|| usuario.getSabRol().getIdRol().equals(otros)) {
+						if (pageRequested.contains("consultaPrestamo.jspx"))
 							cambioAcceso = 0;
 					}
 				}

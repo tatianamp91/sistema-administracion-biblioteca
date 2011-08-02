@@ -23,7 +23,7 @@ public class SabUsuarioLogica {
         return list;
     }
 
-    public void saveSabUsuario(Long codigo, String email,
+    public void saveSabUsuario(String codigo, String email,
         String nombreCompleto, Long numIdentificacion, Long idRol_SabRol)
         throws Exception {
         SabUsuario entity = null;
@@ -32,41 +32,33 @@ public class SabUsuarioLogica {
             if (codigo == null) {
                 throw new Exception(FacesUtils.getMensaje("error.codigo"));
             }
-
-            if ((codigo != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + codigo, 10, 0) == false)) {
+            if ((codigo != null) && (Utilities.checkWordAndCheckWithlength(codigo, 10) == false)) {
                 throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
             }
-
-            if (email == null) {
-                throw new Exception(FacesUtils.getMensaje("error.correo"));
-            }
-
-            if ((email != null) && (Utilities.checkWordAndCheckWithlength(email, 50) == false)) {
-                throw new Exception(FacesUtils.getMensaje("error.correo.no.valido"));
-            }
-
-            if (nombreCompleto == null) {
-                throw new Exception(FacesUtils.getMensaje("error.nombre"));
-            }
-
-            if ((nombreCompleto != null) && (Utilities.checkWordAndCheckWithlength(nombreCompleto, 50) == false)) {
-                throw new Exception(FacesUtils.getMensaje("error.nombre.no.valido"));
-            }
-
             if (numIdentificacion == null) {
                 throw new Exception(FacesUtils.getMensaje("error.numId"));
             }
-
             if ((numIdentificacion != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + numIdentificacion, 20, 0) == false)) {
                 throw new Exception(FacesUtils.getMensaje("error.numId.no.valido"));
             }
-
+            if (nombreCompleto == null) {
+                throw new Exception(FacesUtils.getMensaje("error.nombre"));
+            }
+            if ((nombreCompleto != null) && (Utilities.checkWordAndCheckWithlength(nombreCompleto, 50) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.nombre.no.valido"));
+            }
             if (idRol_SabRol == null) {
                 throw new Exception(FacesUtils.getMensaje("error.idRol"));
             }
 
             if ((idRol_SabRol != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + idRol_SabRol, 8, 0) == false)) {
                 throw new Exception(FacesUtils.getMensaje("error.idRol.no.valido"));
+            }
+            if (email == null) {
+                throw new Exception(FacesUtils.getMensaje("error.correo"));
+            }
+            if ((email != null) && (Utilities.checkWordAndCheckWithlength(email, 50) == false)) {
+                throw new Exception(FacesUtils.getMensaje("error.correo.no.valido"));
             }
 
             SabRolLogica logicSabRol1 = new SabRolLogica();
@@ -125,7 +117,7 @@ public class SabUsuarioLogica {
         }
     }
 
-    public void updateSabUsuario(Long codigo, String email, Long idUsuario,
+    public void updateSabUsuario(String codigo, String email, Long idUsuario,
         String nombreCompleto, Long numIdentificacion, Long idRol_SabRol)
         throws Exception {
         SabUsuario entity = null;
@@ -135,7 +127,7 @@ public class SabUsuarioLogica {
                 throw new Exception(FacesUtils.getMensaje("error.codigo"));
             }
 
-            if ((codigo != null) && (Utilities.checkNumberAndCheckWithPrecisionAndScale("" + codigo, 10, 0) == false)) {
+            if ((codigo != null) && (Utilities.checkWordAndCheckWithlength(codigo, 10) == false)) {
                 throw new Exception(FacesUtils.getMensaje("error.codigo.no.valido"));
             }
 
@@ -219,7 +211,7 @@ public class SabUsuarioLogica {
         return entity;
     }
     
-    public SabUsuario consultarPorCorreoCodigo(String correo, Long codigo)throws Exception{
+    public SabUsuario consultarPorCorreoCodigo(String correo, String codigo)throws Exception{
 		SabUsuario entity =null;
 		try {
 			entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().consultarPorCorreoCodigo(correo, codigo);
@@ -229,7 +221,7 @@ public class SabUsuarioLogica {
 		return entity;
 	}
 
-    public SabUsuario consultarPorCodigo(Long codigo)throws Exception{
+    public SabUsuario consultarPorCodigo(String codigo)throws Exception{
 		SabUsuario entity = null;
 		try {
 			entity = XMLHibernateDaoFactory.getInstance().getSabUsuarioDAO().consultarPorCodigo(codigo);

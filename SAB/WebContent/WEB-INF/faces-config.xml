@@ -60,6 +60,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>sabConsultaPrestamoVista</managed-bean-name>
+		<managed-bean-class>co.edu.presentacion.vista.SabConsultaPrestamoVista</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>sabPrestamoVista</managed-bean-name>
 		<managed-bean-class>co.edu.presentacion.vista.SabPrestamoVista</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>

@@ -2,6 +2,11 @@
 	xmlns:ice="http://www.icesoft.com/icefaces/component"><ice:panelGrid
 	cellspacing="3" width="100%">
 
+	<ice:panelGrid columns="2">
+		<ice:graphicImage style="border:0" url="/images/user.png" />
+		<ice:outputText style="margin-top: 5px" value="#{sabMenuVista.userName}" styleClass="texto4" />
+	</ice:panelGrid>
+	
 	<!-- ADMINISTRACION -->
 	<ice:panelGroup styleClass="marcoImportante" rendered="#{sabMenuVista.administrador}">
 		<ice:outputText value="#{lbl.mnuAdministracion}" styleClass="texto1"></ice:outputText>
@@ -21,7 +26,7 @@
 		<ice:outputText value="#{lbl.mnuPrest}" styleClass="texto1"></ice:outputText>
 	</ice:panelGroup>
 	<ice:commandLink value="#{lbl.mnuPrestamo}" styleClass="enlace1" action="goPrestamo" rendered="#{sabMenuVista.administrador}"></ice:commandLink>
-	<ice:commandLink value="#{lbl.mnuConsultaPrestamo}" styleClass="enlace1" action="goConsultaPrestamo" rendered="#{sabMenuVista.profesorEstudiante || sabMenuVista.otro}"></ice:commandLink>
+	<ice:commandLink value="#{lbl.mnuConsultaPrestamo}" styleClass="enlace1" action="goConsultaPrestamo" rendered="#{sabMenuVista.administrador || sabMenuVista.profesorEstudiante || sabMenuVista.otro}"></ice:commandLink>
 
 	<!-- CONSULTA -->
 	<ice:panelGroup styleClass="marcoImportante">

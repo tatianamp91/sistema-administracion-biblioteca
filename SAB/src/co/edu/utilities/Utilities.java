@@ -10,11 +10,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.validator.EmailValidator;
 
-/**
- * 
- * @author Zathura Code Generator http://code.google.com/p/zathura/
- * 
- */
 public class Utilities {
 
 	public static boolean isNumeric(String word) {
@@ -27,13 +22,6 @@ public class Utilities {
 		return ret;
 	}
 
-	/**
-	 * 
-	 * @param word
-	 * @return Expresion regular "(\\d){1,10}\\.(\\d){1,10}" (\\d)digito
-	 *         {1,10}de 1 a 10 caracteres \\. punto
-	 * 
-	 */
 	public static boolean isDecimal(String word) {
 		boolean ret = false;
 		Pattern pat = Pattern.compile("(\\d){1,8}\\.(\\d){0,2}");
@@ -137,14 +125,6 @@ public class Utilities {
 		return emailValidator.isValid(sEmail);
 	}
 
-	/**
-	 * 
-	 * @param object
-	 * @param object2
-	 * @param privateFields
-	 * @return
-	 * @throws Exception
-	 */
 	public static boolean matchClasses(Object object, Object object2,
 			boolean privateFields) throws Exception {
 

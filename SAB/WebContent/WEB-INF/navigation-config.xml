@@ -63,5 +63,10 @@
 			<to-view-id>/pages/consulta.jspx</to-view-id>
 			<redirect/>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>goConsultaPrestamo</from-outcome>
+			<to-view-id>/pages/consultaPrestamo.jspx</to-view-id>
+			<redirect/>
+		</navigation-case>
 	</navigation-rule>
 </faces-config>

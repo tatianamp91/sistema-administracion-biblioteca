@@ -16,19 +16,6 @@ import org.hibernate.criterion.Restrictions;
 import co.edu.accesodatos.session.HibernateSessionFactory;
 import co.edu.unicatolica.modelo.SabLibro;
 
-
-/**
- * A data access object (DAO) providing persistence and search support for
- * SabLibro entities. Transaction control of the save(), update() and
- * delete() operations can directly support Spring container-managed
- * transactions or they can be augmented to handle user-managed Spring
- * transactions. Each of these methods provides additional information for how
- * to configure it for the desired type of transaction control.
- *
- *
- * @author Zathura Code Generator http://code.google.com/p/zathura
- *
- */
 public class SabLibroDAO {
     private static final Log log = LogFactory.getLog(SabLibroDAO.class);
 
@@ -49,13 +36,6 @@ public class SabLibroDAO {
         return HibernateSessionFactory.getSession();
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabLibro Instance to persist
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void save(SabLibro instance) {
         log.debug("saving SabLibro instance");
 
@@ -68,12 +48,6 @@ public class SabLibroDAO {
         }
     }
 
-    /**
-    * @param Instance
-    *            SabLibro Instance to delete
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void delete(SabLibro instance) {
         log.debug("deleting SabLibro instance");
 
@@ -86,13 +60,6 @@ public class SabLibroDAO {
         }
     }
 
-    /**
-    *
-    * @param Instance
-    *            SabLibro Instance to update
-    * @throws RuntimeException
-    *             when the operation fails
-    */
     public void update(SabLibro instance) {
         log.debug("updating SabLibro instance");
 
@@ -134,15 +101,6 @@ public class SabLibroDAO {
         }
     }
 
-    /**
-    * Find all  SabLibro entities with a specific property value.
-    *
-    * @param value
-    *            the property value to match
-    * @param propertyName
-    *            the property to search in the instance
-    * @return List< SabLibro> found by query
-        */
     public List<SabLibro> findByProperty(String propertyName, Object value) {
         log.debug("finding SabLibro instance with property: " + propertyName +
             ", value: " + value);
@@ -176,11 +134,6 @@ public class SabLibroDAO {
         return findByProperty(TITULO, titulo);
     }
 
-    /**
-    * Find all SabLibro entities.
-    *
-    * @return List<SabLibro> all SabLibro instances
-    */
     public List<SabLibro> findAll() {
         log.debug("finding all SabLibro instances");
 

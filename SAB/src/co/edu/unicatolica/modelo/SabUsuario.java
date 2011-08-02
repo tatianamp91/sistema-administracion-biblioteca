@@ -11,7 +11,7 @@ public class SabUsuario implements java.io.Serializable {
 	private SabRol sabRol;
 	private Long numIdentificacion;
 	private String nombreCompleto;
-	private Long codigo;
+	private String codigo;
 	private String email;
 	private Set<SabPrestamo> sabPrestamos = new HashSet<SabPrestamo>(0);
 
@@ -19,7 +19,7 @@ public class SabUsuario implements java.io.Serializable {
 	}
 
 	public SabUsuario(Long idUsuario, Long numIdentificacion,
-			String nombreCompleto, Long codigo, String email) {
+			String nombreCompleto, String codigo, String email) {
 		this.idUsuario = idUsuario;
 		this.numIdentificacion = numIdentificacion;
 		this.nombreCompleto = nombreCompleto;
@@ -28,7 +28,7 @@ public class SabUsuario implements java.io.Serializable {
 	}
 
 	public SabUsuario(Long idUsuario, SabRol sabRol, Long numIdentificacion,
-			String nombreCompleto, Long codigo, String email,
+			String nombreCompleto, String codigo, String email,
 			Set<SabPrestamo> sabPrestamos) {
 		this.idUsuario = idUsuario;
 		this.sabRol = sabRol;
@@ -71,11 +71,11 @@ public class SabUsuario implements java.io.Serializable {
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public Long getCodigo() {
+	public String getCodigo() {
 		return this.codigo;
 	}
 
-	public void setCodigo(Long codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
